@@ -4152,7 +4152,7 @@ engine.io@~4.1.0:
     engine.io-parser "~4.0.0"
     ws "~7.4.2"
 
-enhanced-resolve@^5.8.3, enhanced-resolve@^5.9.2:
+enhanced-resolve@^5.7.0, enhanced-resolve@^5.8.3, enhanced-resolve@^5.9.2:
   version "5.9.2"
   resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.9.2.tgz"
   integrity sha512-GIm3fQfwLJ8YZx2smuHpBKkXC1yOk+OBEmKckVyL0i/ea8mqDEykK3ld5dgH1QYPNyT/lIllxV2LULnxCHaHkA==
@@ -4301,25 +4301,6 @@ escape-string-regexp@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
-
-eslint-config-airbnb-base@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.npmjs.org/eslint-config-airbnb-base/-/eslint-config-airbnb-base-15.0.0.tgz"
-  integrity sha512-xaX3z4ZZIcFLvh2oUNvcX5oEofXda7giYmuplVxoOg5A7EXJMrUyqRgR+mhDhPK8LZ4PttFOBvCYDbX3sUoUig==
-  dependencies:
-    confusing-browser-globals "^1.0.10"
-    object.assign "^4.1.2"
-    object.entries "^1.1.5"
-    semver "^6.3.0"
-
-eslint-config-airbnb@^19.0.4:
-  version "19.0.4"
-  resolved "https://registry.npmjs.org/eslint-config-airbnb/-/eslint-config-airbnb-19.0.4.tgz"
-  integrity sha512-T75QYQVQX57jiNgpF9r1KegMICE94VYwoFQyMGhrvc+lB8YF2E/M/PYDaQe1AJcWaEgqLE+ErXV1Og/+6Vyzew==
-  dependencies:
-    eslint-config-airbnb-base "^15.0.0"
-    object.assign "^4.1.2"
-    object.entries "^1.1.5"
 
 eslint-config-prettier@^8.5.0:
   version "8.5.0"
@@ -5233,9 +5214,16 @@ gatsby-plugin-page-creator@^4.11.1:
     globby "^11.0.4"
     lodash "^4.17.21"
 
+gatsby-plugin-tsconfig-paths@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-tsconfig-paths/-/gatsby-plugin-tsconfig-paths-1.0.5.tgz#ee52756545874b954d44a7a29d4e33126f44f4c5"
+  integrity sha512-L+/XRv/dbUQLqak5BkDDxxAw/9bl1u3FFs1qgcqaTQN8BXmphdKno/G63uuxu+qs2udtXGhLOgWRYQDI4G3Jdw==
+  dependencies:
+    tsconfig-paths-webpack-plugin "^3.2.0"
+
 gatsby-plugin-typescript@^4.11.1:
   version "4.11.1"
-  resolved "https://registry.npmjs.org/gatsby-plugin-typescript/-/gatsby-plugin-typescript-4.11.1.tgz"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-4.11.1.tgz#dcd96ded685f8c4a73ae5524faab342f9c9e3c1d"
   integrity sha512-6ef2wRhPqcLPyekEAU3xcoqI59r+mDnCzn/O+8hRgwJyx/2dwvF8brusetXoqdTk4Vyhk44p8dog8+gCGATckw==
   dependencies:
     "@babel/core" "^7.15.5"
@@ -9535,7 +9523,16 @@ ts-node@^9:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tsconfig-paths@^3.14.1:
+tsconfig-paths-webpack-plugin@^3.2.0:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths-webpack-plugin/-/tsconfig-paths-webpack-plugin-3.5.2.tgz#01aafff59130c04a8c4ebc96a3045c43c376449a"
+  integrity sha512-EhnfjHbzm5IYI9YPNVIxx1moxMI4bpHD2e0zTXeDNQcwjjRaGepP7IhTHJkyDBG0CAOoxRfe7jCG630Ou+C6Pw==
+  dependencies:
+    chalk "^4.1.0"
+    enhanced-resolve "^5.7.0"
+    tsconfig-paths "^3.9.0"
+
+tsconfig-paths@^3.14.1, tsconfig-paths@^3.9.0:
   version "3.14.1"
   resolved "https://registry.npmjs.org/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz"
   integrity sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ==
