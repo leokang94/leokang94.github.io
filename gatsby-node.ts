@@ -1,6 +1,5 @@
 import type { GatsbyNode } from 'gatsby';
-
-import path from 'path';
+import TsConfigPathPlugin from 'tsconfig-paths-webpack-plugin';
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ getConfig, actions }) => {
   // webpack config 중 기본 output을 가져온다.
@@ -10,12 +9,10 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ get
   actions.setWebpackConfig({
     output,
     resolve: {
-      // alias 설정을 해준다. (실제 번들링 시 해당 alias 경로에 대한 실제 경로를 설정해주기 위함)
-      alias: {
-        '@component': path.resolve('src/components'),
-        '@utils': path.resolve('src/utils'),
-        '@hooks': path.resolve('src/hooks'),
-      },
+      plugins: [
+        // tsConfig의 path를 webpack에서도 적용시켜주기 위함 (alias를 위해)
+        new TsConfigPathPlugin(),
+      ],
     },
   });
 };

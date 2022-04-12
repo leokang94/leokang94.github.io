@@ -14,7 +14,6 @@ const config: GatsbyConfig = {
         allExtensions: true,
       },
     },
-    'gatsby-plugin-tsconfig-paths',
   ],
 };
 
