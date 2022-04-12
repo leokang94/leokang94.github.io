@@ -1,9 +1,6 @@
-// @ts-check
+import type { GatsbyConfig } from 'gatsby';
 
-/**
- * @type {import('gatsby').GatsbyConfig}
- */
-const gatsbyConfig = {
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Taehun Kang Devlog',
     siteUrl: 'https://www.yourdomain.tld',
@@ -21,4 +18,4 @@ const gatsbyConfig = {
   ],
 };
 
-module.exports = gatsbyConfig;
+export default config;

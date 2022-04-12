@@ -1,11 +1,8 @@
-// @ts-check
+import type { GatsbyNode } from 'gatsby';
 
-const path = require('path');
+import path from 'path';
 
-/**
- * @type {import('gatsby').GatsbyNode['onCreateWebpackConfig']}
- */
-exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ getConfig, actions }) => {
   // webpack config 중 기본 output을 가져온다.
   const output = getConfig().output || {};
 
