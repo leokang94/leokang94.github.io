@@ -3,7 +3,7 @@ import type { GatsbyConfig } from 'gatsby';
 const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Taehun Kang Devlog',
-    siteUrl: 'https://www.yourdomain.tld',
+    siteUrl: 'https://taehun.devlog.io',
     author: 'Taehun Kang',
   },
   plugins: [
@@ -14,6 +14,8 @@ const config: GatsbyConfig = {
         allExtensions: true,
       },
     },
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sitemap',
   ],
 };
 

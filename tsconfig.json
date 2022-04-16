@@ -11,11 +11,12 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"],
-      "@hooks/*": ["hooks/*"]
+      "#components/*": ["components/*"],
+      "#utils/*": ["utils/*"],
+      "#hooks/*": ["hooks/*"],
+      "#styles/*": ["styles/*"]
     }
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./gatsby-browser.tsx"],
   "exclude": ["node_modules"]
 }
