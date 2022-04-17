@@ -1,19 +1,23 @@
 import React from 'react';
+import { ThemeProvider } from '@emotion/react';
 import type { GatsbyBrowser } from 'gatsby';
 
-import GlobalStyle from '#styles/global.style';
 import Layout from '#template/Layout';
 import Header from '#components/Header';
+
+import GlobalStyle from '#styles/global.style';
+import theme from '#styles/theme';
 
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
     <>
       <GlobalStyle />
-      <Layout>
-        <Header />
-        <h1>Hello World</h1>
-        {element}
-      </Layout>
+      <Header />
+      <Layout>{element}</Layout>
     </>
   );
+};
+
+export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({ element }) => {
+  return <ThemeProvider theme={theme}>{element}</ThemeProvider>;
 };

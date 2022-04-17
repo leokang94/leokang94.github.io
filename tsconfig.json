@@ -15,7 +15,8 @@
       "#utils/*": ["utils/*"],
       "#hooks/*": ["hooks/*"],
       "#template/*": ["template/*"],
-      "#styles/*": ["styles/*"]
+      "#styles/*": ["styles/*"],
+      "#utils/*": ["utils/*"]
     }
   },
   "include": ["./src/**/*", "./gatsby-browser.tsx"],

@@ -8,5 +8,5 @@ const Layout: React.FC = ({ children }) => {
 export default Layout;
 
 const StyledLayout = styled.div`
-  padding: 0 2.3rem;
+  padding: 0 ${({ theme }) => theme.size.px(24)};
 `;
