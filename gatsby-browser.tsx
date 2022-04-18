@@ -3,7 +3,7 @@ import { ThemeProvider } from '@emotion/react';
 import type { GatsbyBrowser } from 'gatsby';
 
 import Layout from '#template/Layout';
-import Header from '#components/Header';
+import Header from '#components/common/Header';
 
 import GlobalStyle from '#styles/global.style';
 import theme from '#styles/theme';
