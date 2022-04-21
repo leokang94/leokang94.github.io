@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "esnext"],
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,

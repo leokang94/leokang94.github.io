@@ -7,7 +7,7 @@ export default function IndexPage() {
     <>
       <h1>Hello World!</h1>
       <Text text="Home" />
-      <Post title="첫 번째 포스트" />
+      <Post title="첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트첫 번째 포스트" />
     </>
   );
 }

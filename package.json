@@ -38,6 +38,8 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
