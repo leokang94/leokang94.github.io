@@ -15,5 +15,6 @@ const StyledHeader = styled.header`
     height: ${theme.size.px(64)};
     background-color: ${theme.color.headerBg};
     padding: 0 ${theme.size.px(24)};
+    z-index: 100;
   `}
 `;

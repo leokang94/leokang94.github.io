@@ -3,33 +3,22 @@ import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { StaticImage } from 'gatsby-plugin-image';
 
-const WIDTH = 350;
-
-export const Post: React.FC = ({ children }) => {
+export function PostImage() {
   const theme = useTheme();
   const imageCss = css`
     border-radius: ${theme.size.px(10)} ${theme.size.px(10)} 0 0;
-    height: ${theme.size.px(WIDTH * (9 / 16))}; // 16:9
+    aspect-ratio: 16 / 9;
   `;
 
-  return (
-    <StyledPost>
-      <StaticImage src="../../../assets/images/default-thumbnail.png" alt="asdf" css={imageCss} />
-      {/* <GatsbyImage image={getImage(defaultThumbnail)} alt="asdf" css={imageCss} /> */}
-      <PostContentArea>
-        <Title>{children}</Title>
-        <Desc>asdfasdfasdfsadfadfsdfasdfsadfas</Desc>
-      </PostContentArea>
-    </StyledPost>
-  );
-};
+  return <StaticImage src="../../../assets/images/default-thumbnail.png" alt="asdf" css={imageCss} />;
+}
 
-const StyledPost = styled.div`
+export const Post = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: flex;
     flex-direction: column;
-    width: ${theme.size.px(WIDTH)};
+    width: 100%;
     border-radius: ${theme.size.px(10)};
     box-shadow: 0 0 ${theme.size.px(8)} rgba(0, 0, 0, 0.15);
     cursor: pointer;
@@ -41,7 +30,7 @@ const StyledPost = styled.div`
   `}
 `;
 
-const PostContentArea = styled.div`
+export const PostContentArea = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
@@ -49,7 +38,8 @@ const PostContentArea = styled.div`
     gap: ${theme.size.px(10)};
   `}
 `;
-const Title = styled.div`
+
+const textEllipseCss = css`
   // text ellipse를 2라인으로 처리
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -65,9 +55,40 @@ const Title = styled.div`
     -webkit-box-orient: vertical;
   }
 `;
-const Desc = styled.div`
+
+export const Title = styled.div`
+  ${textEllipseCss}
+`;
+
+export const Date = styled.div`
   ${({ theme }) => css`
     font-size: ${theme.size.px(14)};
     color: ${theme.color.gray};
+  `}
+`;
+
+export const Desc = styled.div`
+  ${textEllipseCss}
+
+  ${({ theme }) => css`
+    font-size: ${theme.size.px(14)};
+    color: ${theme.color.gray};
+  `}
+`;
+
+export const TagArea = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: ${theme.size.px(5)};
+  `}
+`;
+
+export const Tag = styled.div`
+  ${({ theme }) => css`
+    padding: ${theme.size.px(5)} ${theme.size.px(10)};
+    border-radius: ${theme.size.px(5)};
+    background-color: ${theme.color.gray};
+    font-size: ${theme.size.px(13)};
+    color: ${theme.color.black};
   `}
 `;

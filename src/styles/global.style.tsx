@@ -26,12 +26,6 @@ export default function GlobalStyle() {
             'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
-        html,
-        body,
-        #___gatsby {
-          height: 100%;
-        }
-
         a,
         a:hover {
           color: inherit;

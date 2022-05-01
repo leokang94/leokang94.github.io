@@ -7,6 +7,7 @@ import Header from '#components/common/Header';
 
 import GlobalStyle from '#styles/global.style';
 import theme from '#styles/theme';
+import Footer from '#components/common/Footer';
 
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
@@ -14,6 +15,7 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element }) =
       <GlobalStyle />
       <Header />
       <Layout>{element}</Layout>
+      <Footer />
     </>
   );
 };

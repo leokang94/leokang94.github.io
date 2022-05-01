@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 const Layout: React.FC = ({ children }) => {
   return <StyledLayout>{children}</StyledLayout>;
@@ -8,5 +9,7 @@ const Layout: React.FC = ({ children }) => {
 export default Layout;
 
 const StyledLayout = styled.div`
-  padding: 0 ${({ theme }) => theme.size.px(24)};
+  ${({ theme }) => css`
+    padding: ${theme.size.px(20)} ${theme.size.px(20)};
+  `}
 `;
