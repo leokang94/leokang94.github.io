@@ -10,7 +10,7 @@ export function PostImage() {
     aspect-ratio: 16 / 9;
   `;
 
-  return <StaticImage src="../../../assets/images/default-thumbnail.png" alt="asdf" css={imageCss} />;
+  return <StaticImage src="../../../../assets/images/default-thumbnail.png" alt="asdf" css={imageCss} />;
 }
 
 export const Post = styled.div`
