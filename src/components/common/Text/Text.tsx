@@ -1,9 +1,9 @@
 import React from 'react';
 
-interface IText {
+interface TextProps {
   text: string;
 }
 
-export default function Text({ text }: IText) {
+export default function Text({ text }: TextProps) {
   return <div>{text}</div>;
 }

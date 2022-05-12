@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './Post.style';
 
-interface IPost {
+interface PostProps {
   title: string;
   date: string;
   content: string;
@@ -9,7 +9,7 @@ interface IPost {
   imageSrc?: string;
 }
 
-export default function Post({ title, date, content, tags, imageSrc }: IPost) {
+export default function Post({ title, date, content, tags, imageSrc }: PostProps) {
   return (
     <S.Post>
       <S.PostImage />

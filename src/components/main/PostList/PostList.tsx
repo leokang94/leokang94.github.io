@@ -4,7 +4,7 @@ import Post from './Post';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-interface IPostFrontMatter {
+interface PostFrontMatter {
   date: string;
   title: string;
   categories: string[];
@@ -13,17 +13,17 @@ interface IPostFrontMatter {
     publicURL: string;
   };
 }
-interface IPostList {
+interface PostListQueryRes {
   allMarkdownRemark: {
     edges: {
       node: {
         id: string;
-        frontmatter: IPostFrontMatter;
+        frontmatter: PostFrontMatter;
       };
     }[];
   };
 }
-interface IPostData extends IPostFrontMatter {
+interface PostData extends PostFrontMatter {
   id: string;
 }
 
@@ -51,9 +51,9 @@ const getPostListQuery = graphql`
 export default function PostList() {
   const {
     allMarkdownRemark: { edges },
-  }: IPostList = useStaticQuery(getPostListQuery);
+  }: PostListQueryRes = useStaticQuery(getPostListQuery);
 
-  const posts: IPostData[] = edges.map((edge) => ({
+  const posts: PostData[] = edges.map((edge) => ({
     id: edge.node.id,
     ...edge.node.frontmatter,
   }));
@@ -61,7 +61,14 @@ export default function PostList() {
   return (
     <S.PostList>
       {posts.map((post) => (
-        <Post key={post.id} title={post.title} date={post.date} tags={post.categories} content={post.summary} />
+        <Post
+          key={post.id}
+          title={post.title}
+          date={post.date}
+          tags={post.categories}
+          content={post.summary}
+          imageSrc={post.thumbnail.publicURL}
+        />
       ))}
     </S.PostList>
   );

@@ -3,7 +3,10 @@ import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { StaticImage } from 'gatsby-plugin-image';
 
-export function PostImage() {
+interface PostImageProps {
+  imageSrc?: string;
+}
+export function PostImage({ imageSrc }: PostImageProps) {
   const theme = useTheme();
   const imageCss = css`
     border-radius: ${theme.size.px(10)} ${theme.size.px(10)} 0 0;
