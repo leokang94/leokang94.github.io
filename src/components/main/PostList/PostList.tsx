@@ -3,6 +3,7 @@ import * as S from './PostList.style';
 import Post from './Post';
 
 import { useStaticQuery, graphql } from 'gatsby';
+import { IGatsbyImageData } from 'gatsby-plugin-image';
 
 interface PostFrontMatter {
   date: string;
@@ -10,7 +11,9 @@ interface PostFrontMatter {
   categories: string[];
   summary: string;
   thumbnail: {
-    publicURL: string;
+    childImageSharp: {
+      gatsbyImageData: IGatsbyImageData;
+    };
   };
 }
 interface PostListQueryRes {
@@ -36,7 +39,9 @@ const getPostListQuery = graphql`
           frontmatter {
             title
             thumbnail {
-              publicURL
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED)
+              }
             }
             summary
             date(formatString: "YYYY.MM.DD")
@@ -67,7 +72,7 @@ export default function PostList() {
           date={post.date}
           tags={post.categories}
           content={post.summary}
-          imageSrc={post.thumbnail.publicURL}
+          thumbnail={post.thumbnail?.childImageSharp.gatsbyImageData}
         />
       ))}
     </S.PostList>

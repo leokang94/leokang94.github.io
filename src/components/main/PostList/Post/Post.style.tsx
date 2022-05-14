@@ -1,20 +1,7 @@
 import React from 'react';
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { StaticImage } from 'gatsby-plugin-image';
-
-interface PostImageProps {
-  imageSrc?: string;
-}
-export function PostImage({ imageSrc }: PostImageProps) {
-  const theme = useTheme();
-  const imageCss = css`
-    border-radius: ${theme.size.px(10)} ${theme.size.px(10)} 0 0;
-    aspect-ratio: 16 / 9;
-  `;
-
-  return <StaticImage src="../../../../assets/images/default-thumbnail.png" alt="asdf" css={imageCss} />;
-}
+import { StaticImage, GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 
 export const Post = styled.div`
   ${({ theme }) => css`
@@ -33,7 +20,21 @@ export const Post = styled.div`
   `}
 `;
 
-export const PostContentArea = styled.div`
+interface PostImageProps {
+  thumbnail: Nullable<IGatsbyImageData>;
+}
+export function Image({ thumbnail }: PostImageProps) {
+  const theme = useTheme();
+  const imageCss = css`
+    border-radius: ${theme.size.px(10)} ${theme.size.px(10)} 0 0;
+    aspect-ratio: 16 / 9;
+  `;
+
+  if (thumbnail) return <GatsbyImage image={thumbnail} alt="thumbnail" css={imageCss} />;
+  return <StaticImage src="../../../../assets/images/default-thumbnail.png" alt="thumbnail" css={imageCss} />;
+}
+
+export const ContentArea = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
@@ -47,7 +48,7 @@ const textEllipseCss = css`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  line-height: 20px;
+  /* line-height: 20px; */
 
   @supports (-webkit-line-clamp: 2) {
     overflow: hidden;
@@ -61,6 +62,11 @@ const textEllipseCss = css`
 
 export const Title = styled.div`
   ${textEllipseCss}
+
+  ${({ theme }) =>
+    css`
+      line-height: ${theme.size.px(23)};
+    `}
 `;
 
 export const Date = styled.div`
@@ -74,6 +80,7 @@ export const Desc = styled.div`
   ${textEllipseCss}
 
   ${({ theme }) => css`
+    line-height: ${theme.size.px(20)};
     font-size: ${theme.size.px(14)};
     color: ${theme.color.gray};
   `}

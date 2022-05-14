@@ -1,19 +1,21 @@
 import React from 'react';
 import * as S from './Post.style';
 
+import { IGatsbyImageData } from 'gatsby-plugin-image';
+
 interface PostProps {
   title: string;
   date: string;
   content: string;
   tags?: string[];
-  imageSrc?: string;
+  thumbnail: Nullable<IGatsbyImageData>;
 }
 
-export default function Post({ title, date, content, tags, imageSrc }: PostProps) {
+export default function Post({ title, date, content, tags, thumbnail }: PostProps) {
   return (
     <S.Post>
-      <S.PostImage />
-      <S.PostContentArea>
+      <S.Image thumbnail={thumbnail} />
+      <S.ContentArea>
         <S.Title>{title}</S.Title>
         <S.Date>{date}</S.Date>
         {tags && (
@@ -24,7 +26,7 @@ export default function Post({ title, date, content, tags, imageSrc }: PostProps
           </S.TagArea>
         )}
         {content && <S.Desc>{content}</S.Desc>}
-      </S.PostContentArea>
+      </S.ContentArea>
     </S.Post>
   );
 }
