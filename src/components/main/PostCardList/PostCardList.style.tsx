@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-export const PostList = styled.div`
+export const PostCardList = styled.div`
   ${({ theme }) => css`
     display: grid;
     grid-template-columns: 1fr;

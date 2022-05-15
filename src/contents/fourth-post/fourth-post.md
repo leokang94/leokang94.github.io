@@ -1,6 +1,7 @@
 ---
 date: '2022-05-03'
 title: 'My 4th Blog Post'
+slug: 'm';
 categories: ['Web', 'Optimization']
 summary: '하하하하하하하하하하'
 ---

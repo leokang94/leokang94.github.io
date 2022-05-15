@@ -1,19 +1,26 @@
 import React from 'react';
-import * as S from './Post.style';
+import { navigate } from 'gatsby';
+
+import * as S from './PostCard.style';
 
 import { IGatsbyImageData } from 'gatsby-plugin-image';
 
-interface PostProps {
+interface PostCardProps {
   title: string;
+  slug: string;
   date: string;
   content: string;
   tags?: string[];
   thumbnail: Nullable<IGatsbyImageData>;
 }
 
-export default function Post({ title, date, content, tags, thumbnail }: PostProps) {
+export default function PostCard({ title, slug, date, content, tags, thumbnail }: PostCardProps) {
+  const handleClick = async () => {
+    await navigate(`/blog/${slug}`);
+  };
+
   return (
-    <S.Post>
+    <S.PostCard onClick={handleClick}>
       <S.Image thumbnail={thumbnail} />
       <S.ContentArea>
         <S.Title>{title}</S.Title>
@@ -27,6 +34,6 @@ export default function Post({ title, date, content, tags, thumbnail }: PostProp
         )}
         {content && <S.Desc>{content}</S.Desc>}
       </S.ContentArea>
-    </S.Post>
+    </S.PostCard>
   );
 }

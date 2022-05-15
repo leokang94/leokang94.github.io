@@ -3,7 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { StaticImage, GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 
-export const Post = styled.div`
+export const PostCard = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: flex;
@@ -20,10 +20,10 @@ export const Post = styled.div`
   `}
 `;
 
-interface PostImageProps {
+interface PostCardImageProps {
   thumbnail: Nullable<IGatsbyImageData>;
 }
-export function Image({ thumbnail }: PostImageProps) {
+export function Image({ thumbnail }: PostCardImageProps) {
   const theme = useTheme();
   const imageCss = css`
     border-radius: ${theme.size.px(10)} ${theme.size.px(10)} 0 0;
