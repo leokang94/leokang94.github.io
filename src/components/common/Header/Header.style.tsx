@@ -9,6 +9,7 @@ export const Header: React.FC = ({ children }) => {
 const StyledHeader = styled.header`
   ${({ theme }) => css`
     position: sticky;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     top: 0;

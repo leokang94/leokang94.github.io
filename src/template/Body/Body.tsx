@@ -1,6 +1,8 @@
 import React from 'react';
 import * as S from './Body.style';
 
-export default function Body({ children }: React.PropsWithChildren<Record<string, unknown>>) {
+const Body: React.FC = ({ children }) => {
   return <S.Body>{children}</S.Body>;
-}
+};
+
+export default Body;
