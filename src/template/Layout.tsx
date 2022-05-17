@@ -10,6 +10,7 @@ export default Layout;
 
 const StyledLayout = styled.div`
   ${({ theme }) => css`
-    padding: ${theme.size.px(20)} ${theme.size.px(20)};
+    padding: ${theme.size.layoutPadding};
+    height: 100%;
   `}
 `;

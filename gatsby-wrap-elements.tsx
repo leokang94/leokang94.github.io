@@ -19,24 +19,28 @@ interface SSR {
   wrapRootElement: GatsbySSR['wrapRootElement'];
 }
 
-const wrapPageElementJSX = (element: React.ReactElement<any, string | React.JSXElementConstructor<any>>) => (
-  <>
-    <GlobalStyle />
-    <Body>
-      <Header />
-      <Layout>{element}</Layout>
-      <Footer />
-    </Body>
-  </>
-);
+type Exact<T> = T extends null | undefined ? never : T;
+
+const WrapPageElementJSX = ({ element, props }: Partial<Parameters<Exact<GatsbyBrowser['wrapPageElement']>>[0]>) => {
+  return (
+    <React.Fragment {...props}>
+      <GlobalStyle />
+      <Body>
+        <Header />
+        <Layout>{element}</Layout>
+        <Footer />
+      </Body>
+    </React.Fragment>
+  );
+};
 
 const wrapRootElementJSX = (element: React.ReactElement<any, string | React.JSXElementConstructor<any>>) => (
   <ThemeProvider theme={theme}>{element}</ThemeProvider>
 );
 
 export const browser: Browser = {
-  wrapPageElement: ({ element }) => {
-    return wrapPageElementJSX(element);
+  wrapPageElement: ({ element, props }) => {
+    return <WrapPageElementJSX element={element} props={props} />;
   },
   wrapRootElement: ({ element }) => {
     return wrapRootElementJSX(element);
@@ -44,8 +48,8 @@ export const browser: Browser = {
 };
 
 export const ssr: SSR = {
-  wrapPageElement: ({ element }) => {
-    return wrapPageElementJSX(element);
+  wrapPageElement: ({ element, props }) => {
+    return <WrapPageElementJSX element={element} props={props} />;
   },
   wrapRootElement: ({ element }) => {
     return wrapRootElementJSX(element);

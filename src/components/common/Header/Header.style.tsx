@@ -9,11 +9,11 @@ export const Header: React.FC = ({ children }) => {
 const StyledHeader = styled.header`
   ${({ theme }) => css`
     position: sticky;
+    top: 0;
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    top: 0;
-    height: ${theme.size.px(64)};
+    height: ${theme.size.headerHeight};
     background-color: ${theme.color.headerBg};
     padding: 0 ${theme.size.px(24)};
     z-index: 100;

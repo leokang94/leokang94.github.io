@@ -9,11 +9,22 @@ const px = (px: number) => {
   return `${px / basePx}rem`;
 };
 
-const size = {
+const headerHeight = px(64);
+const footerHeight = px(64);
+const layoutPadding = px(20);
+
+const screen = {
   mobile: '320px',
   tablet: '768px',
   laptop: '1024px',
   desktop: '1920px',
+};
+
+const size = {
+  screen,
+  headerHeight,
+  footerHeight,
+  layoutPadding,
   px,
 };
 
