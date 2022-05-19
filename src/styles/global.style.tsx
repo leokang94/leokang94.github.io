@@ -18,7 +18,7 @@ export default function GlobalStyle() {
           padding: 0;
           margin: 0;
           box-sizing: border-box;
-          overflow-wrap: break-word;
+          word-break: break-all;
         }
 
         body {
