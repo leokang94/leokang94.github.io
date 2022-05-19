@@ -18,12 +18,17 @@ export default function GlobalStyle() {
           padding: 0;
           margin: 0;
           box-sizing: border-box;
+          overflow-wrap: break-word;
         }
 
         body {
           font-size: ${theme.typography.baseFontSize};
           font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
             'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        li {
+          list-style-position: inside;
         }
 
         a,
