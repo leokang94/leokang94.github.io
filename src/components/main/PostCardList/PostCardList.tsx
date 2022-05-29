@@ -6,7 +6,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { PostFrontMatter } from '#interface/post.interface';
 
 interface PostCardListQueryRes {
-  allMarkdownRemark: {
+  allMdx: {
     edges: {
       node: {
         id: string;
@@ -21,7 +21,7 @@ interface PostCardData extends PostFrontMatter {
 
 const getPostCardListQuery = graphql`
   query getPostCardList {
-    allMarkdownRemark(sort: { order: [DESC, DESC], fields: [frontmatter___date, frontmatter___title] }) {
+    allMdx(sort: { order: [DESC, DESC], fields: [frontmatter___date, frontmatter___title] }) {
       edges {
         node {
           id
@@ -45,7 +45,7 @@ const getPostCardListQuery = graphql`
 
 export default function PostCardList() {
   const {
-    allMarkdownRemark: { edges },
+    allMdx: { edges },
   } = useStaticQuery<PostCardListQueryRes>(getPostCardListQuery);
 
   const postCards: PostCardData[] = edges.map((edge) => ({

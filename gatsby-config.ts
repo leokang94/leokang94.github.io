@@ -1,9 +1,14 @@
 import type { GatsbyConfig } from 'gatsby';
 import path from 'path';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 if (__dirname.endsWith('/.cache/compiled')) {
   __dirname = __dirname.replace('/.cache/compiled', '');
 }
+
+console.log(path.join(__dirname, 'src', 'components', 'common', 'PostLayout', 'index.ts'));
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -34,9 +39,10 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: 'gatsby-plugin-mdx',
       options: {
-        plugins: ['gatsby-remark-prismjs'],
+        gatsbyRemarkPlugins: ['gatsby-remark-prismjs'],
+        extensions: ['.md', '.mdx'],
       },
     },
   ],
