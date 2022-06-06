@@ -6,14 +6,38 @@ categories: ['Web', 'Optimization']
 summary: '하하하하하하하하하하'
 ---
 
+import CodeBlock from '../../components/mdx/CodeBlock.tsx';
+
 # 안녕하세요
 
-```tsx
+바로 `App` 컴포넌트 입니다.
+
+```tsx filename=test.tsx lineNumbers
 import React from 'react';
 
-const App: React.FC = ({ children }) => {
-  return <div>{children}</div>;
-};
+export default function App() {
+  const handleClick = () => {
+    console.log('hello');
+  };
+
+  return (
+    <>
+      <div>Hello!</div>
+      <button onClick={handleClick}>click</button>
+    </>
+  );
+}
 ```
 
-바로 `App` 컴포넌트 입니다.
+<!-- ```javascript
+console.log(1);
+```
+
+```cpp
+#include <iostream>
+
+
+int main() {
+
+}
+``` -->

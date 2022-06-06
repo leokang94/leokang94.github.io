@@ -1,16 +1,5 @@
-import type { GatsbyConfig } from 'gatsby';
-import path from 'path';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-
-if (__dirname.endsWith('/.cache/compiled')) {
-  __dirname = __dirname.replace('/.cache/compiled', '');
-}
-
-console.log(path.join(__dirname, 'src', 'components', 'common', 'PostLayout', 'index.ts'));
-
-const config: GatsbyConfig = {
+/** @type {import('gatsby').GatsbyConfig} */
+module.exports = {
   siteMetadata: {
     title: 'Taehun Kang Devlog',
     siteUrl: 'https://taehun.devlog.io',
@@ -41,11 +30,9 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        gatsbyRemarkPlugins: ['gatsby-remark-prismjs'],
         extensions: ['.md', '.mdx'],
+        remarkPlugins: [],
       },
     },
   ],
 };
-
-export default config;

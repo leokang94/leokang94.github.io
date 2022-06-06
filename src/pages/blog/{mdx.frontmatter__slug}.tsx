@@ -1,8 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { MDXProvider } from '@mdx-js/react';
 
 import PostLayout from '#components/common/PostLayout';
+import CodeBlock from '#components/mdx/CodeBlock';
 
 interface PostQueryRes {
   data: {
@@ -24,11 +26,21 @@ export default function BlogPostTemplate({ data }: PostQueryRes) {
   } = data.mdx;
 
   return (
-    <PostLayout>
-      <h1>{title}</h1>
-      <h3>{date}</h3>
-      <MDXRenderer>{body}</MDXRenderer>
-    </PostLayout>
+    <MDXProvider
+      components={{
+        pre: (props) => {
+          console.log(props);
+          return <React.Fragment {...props} />;
+        },
+        code: CodeBlock,
+      }}
+    >
+      <PostLayout>
+        <h1>{title}</h1>
+        <h3>{date}</h3>
+        <MDXRenderer>{body}</MDXRenderer>
+      </PostLayout>
+    </MDXProvider>
   );
 }
 
