@@ -44,7 +44,8 @@
     "prismjs": "^1.28.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.7",
@@ -68,7 +69,6 @@
     "graphql-config": "^4.3.0",
     "postcss": "^8.4.12",
     "prettier": "2.6.2",
-    "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.6.3"
   }
 }
