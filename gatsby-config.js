@@ -1,5 +1,6 @@
 /** @type {import('gatsby').GatsbyConfig} */
 module.exports = {
+  pathPrefix: 'devlog',
   siteMetadata: {
     title: 'Taehun Kang Devlog',
     siteUrl: 'https://taehun.devlog.io',

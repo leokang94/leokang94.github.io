@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 jobs:
   builds:
     runs-on: ubuntu-latest
@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --prod --pure-lockfile
       - name: Build
-        run: yarn build
-        env: 
+        run: yarn build --prefix-paths
+        env:
           NODE_ENV: production
       - uses: peaceiris/actions-gh-pages@v2
         env:
