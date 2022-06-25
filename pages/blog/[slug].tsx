@@ -1,4 +1,5 @@
-import Layout from '../../src/components/Layout';
+// import Layout from '../../src/components/Layout';
+import Layout from '#/src/components/Layout';
 import { getAllPosts, getPostBySlug } from '../../src/lib/blog';
 
 interface StaticProps {
