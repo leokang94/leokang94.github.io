@@ -1,4 +1,4 @@
-name: deploy gatsby
+name: deploy nextjs
 
 on:
   push:
@@ -6,29 +6,48 @@ on:
       - main
 
 jobs:
-  builds:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup Node
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node ⚙️
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
-      - name: Cache node_modules
-        uses: actions/cache@v1
+
+      # - name: Get yarn cache directory path
+      #   id: yarn-cache-dir-path
+      #   run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      # - name: Cache 💾
+      #   # https://github.com/marketplace/actions/cache
+      #   uses: actions/cache@v3.0.4
+      #   with:
+      #     path: |
+      #       ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #       ${{ github.workspace }}/node_modules
+      #       ${{ github.workspace }}/.next/cache
+      #     # Generate a new cache whenever packages or source files change.
+      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+      #     # If source files changed but packages didn't, rebuild from a prior cache.
+      #     restore-keys: |
+      #       ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+
+      - name: Install - Build - Export 🔧
+        run: |
+          yarn install
+          yarn build
+          yarn export
+
+      - name: Deploy 🚀
+        # https://github.com/marketplace/actions/deploy-to-github-pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
-          path: node_modules
-          key: ${{runner.OS}}-build-${{hashFiles('**/yarn.lock')}}
-          restore-keys: |
-            ${{runner.OS}}-build-${{runner.OS}}-
-      - name: Install dependencies
-        run: yarn install --prod
-      - name: Build
-        run: yarn build
-        env:
-          NODE_ENV: production
-      - uses: peaceiris/actions-gh-pages@v2
-        env:
-          GITHUB_TOKEN: ${{secrets.DEVLOG_API_KEY}}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./public
+          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: out
+          branch: gh-pages
+          clean: true
