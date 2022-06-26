@@ -1,4 +1,7 @@
 import type { NextPage } from 'next';
+import Layout from '#components/Layout';
+import Header from '#components/Navbar';
+import Footer from '#components/Footer';
 import withHead from '#components/hoc/withHead';
 
 import useProcessor from '../src/hook/useProcessor';
@@ -7,16 +10,9 @@ function Home() {
   const content = useProcessor('<h>test</h>');
 
   return (
-    <div>
-      <main>
-        <h1>Welcome to Acccdang's Devlog</h1>
-        <h2>This is sub title</h2>
-        <h3>This is H3</h3>
-        <h4>h4</h4>
-        <h5>h5</h5>
-        <h6>h6</h6>
-      </main>
-    </div>
+    <Layout>
+      <h1>asdf</h1>
+    </Layout>
   );
 }
 
