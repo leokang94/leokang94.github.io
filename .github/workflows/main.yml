@@ -40,6 +40,7 @@ jobs:
       - name: Install - Build - Export 🔧
         run: |
           yarn install
+          rm -rf ./next
           yarn build
           yarn export
 
