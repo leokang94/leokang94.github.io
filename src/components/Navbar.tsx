@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <nav className={`sticky ${isScrollUp ? 'top-0' : '-top-5'} transition-all`}>
-      Navbar scroll {isScrollUp ? 'up' : 'down'}
+      Navbar scroll {isScrollUp ? 'up2' : 'down2'}
     </nav>
   );
 }
