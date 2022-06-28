@@ -8,7 +8,7 @@ export default function withHead(
   Component: React.FunctionComponent,
   { title, description }: HeadOptionProps,
 ) {
-  return (props: Parameters<typeof Component>[0]) => {
+  const headHoc = (props: Parameters<typeof Component>[0]) => {
     return (
       <>
         <Head>
@@ -20,4 +20,6 @@ export default function withHead(
       </>
     );
   };
+
+  return headHoc;
 }
