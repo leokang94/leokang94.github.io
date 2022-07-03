@@ -1,17 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
   const [isScrollUp, setIsScrollUp] = useState(false);
   const prevScroll = useRef(0);
 
   const handleScroll = () => {
-    // ..
     const currScroll = window.scrollY;
     const isScrollUp = prevScroll.current > currScroll;
-    console.log(isScrollUp);
     setIsScrollUp(isScrollUp);
 
     prevScroll.current = currScroll;
+  };
+
+  const handleClickLogo = () => {
+    alert('Logo! TODO :: go to home');
+  };
+
+  const handleClickMenu = () => {
+    alert('Menu!');
   };
 
   useEffect(() => {
@@ -23,8 +31,17 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`sticky ${isScrollUp ? 'top-0' : '-top-5'} transition-all`}>
-      Navbar scroll {isScrollUp ? 'up2' : 'down2'}
+    <nav
+      className={`sticky backdrop-blur-sm bg-bg-white-rgba duration-300 flex justify-between px-5 py-3 ${
+        isScrollUp ? 'top-0' : '-top-14'
+      } `}
+    >
+      <div className="font-bold text-xl" onClick={handleClickLogo}>
+        {"Accdang's Dev"}
+      </div>
+      <div className="cursor-pointer" onClick={handleClickMenu}>
+        <FontAwesomeIcon icon={faBars} size="lg" />
+      </div>
     </nav>
   );
 }

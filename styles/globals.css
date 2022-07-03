@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-family: 'Noto Sans KR';
+  }
   h1 {
     @apply text-2xl font-bold mb-3;
   }

@@ -11,7 +11,11 @@ module.exports = {
       lg: '976px',
       xl: '1440px',
     },
-    extend: {},
+    extend: {
+      colors: {
+        'bg-white-rgba': 'rgba(255, 255, 255, 0.8)',
+      },
+    },
   },
   plugins: [],
 };
