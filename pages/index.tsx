@@ -1,8 +1,5 @@
-import type { NextPage } from 'next';
-import Layout from '#components/Layout';
-import Header from '#components/Navbar';
-import Footer from '#components/Footer';
 import withHead from '#components/hoc/withHead';
+import Profile from '#components/Profile';
 
 import useProcessor from '../src/hook/useProcessor';
 
@@ -10,7 +7,8 @@ function Home() {
   const content = useProcessor('<h>test</h>');
 
   return (
-    <Layout>
+    <>
+      <Profile />
       <h1>asdf</h1>
       <h1>asdf</h1>
       <h1>asdf</h1>
@@ -48,7 +46,7 @@ function Home() {
       <h1>asdf</h1>
       <h1>asdf</h1>
       <h1>asdf</h1>
-    </Layout>
+    </>
   );
 }
 

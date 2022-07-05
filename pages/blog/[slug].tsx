@@ -1,5 +1,3 @@
-// import Layout from '../../src/components/Layout';
-import Layout from '#/src/components/Layout';
 import { getAllPosts, getPostBySlug } from '../../src/lib/blog';
 
 interface StaticProps {
@@ -9,7 +7,7 @@ interface StaticProps {
 export default function Blog({ meta, content }: StaticProps) {
   console.log('meta', meta);
   console.log('content', content);
-  return <Layout>{content}</Layout>;
+  return <>{content}</>;
 }
 
 interface StaticPropsParams {

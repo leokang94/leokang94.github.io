@@ -8,7 +8,9 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <main className="max-w-3xl m-auto">{children}</main>
+      <main className="px-4 md:w-[48rem] md:max-w-3xl md:m-auto">
+        {children}
+      </main>
       <Footer />
     </div>
   );

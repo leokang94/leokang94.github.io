@@ -37,7 +37,7 @@ export default function Navbar() {
       } `}
     >
       <div className="font-bold text-xl" onClick={handleClickLogo}>
-        {"Accdang's Dev"}
+        {"Acccdang's Dev"}
       </div>
       <div className="cursor-pointer" onClick={handleClickMenu}>
         <FontAwesomeIcon icon={faBars} size="lg" />
