@@ -32,7 +32,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky backdrop-blur-sm bg-bg-white-rgba duration-300 flex justify-between px-5 py-3 ${
+      className={`sticky backdrop-blur-sm bg-bg-white-rgba duration-300 flex justify-between px-5 py-3 shadow-lg shadow-gray-500/10 z-50 ${
         isScrollUp ? 'top-0' : '-top-14'
       } `}
     >
