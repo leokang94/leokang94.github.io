@@ -25,44 +25,58 @@ export default function Navbar() {
     setMenuOpened((prev) => !prev);
   };
 
-  return (
-    <nav
-      className={`sticky top-0 z-50 backdrop-blur-sm bg-white-rgba-80% shadow-lg shadow-gray-500/10 duration-300`}
-    >
-      <div className="flex justify-between px-5 py-3">
-        <Link href="/">
-          <a className="font-bold text-xl">{"Acccdang's Dev"}</a>
-        </Link>
-        <div>
-          <FontAwesomeIcon
-            className={`${menuOpened ? 'hidden' : ''} w-5 h-5 sm:hidden`}
-            icon={faBars}
-            size="lg"
-            onClick={toggleMenuIcon}
-          />
-          <FontAwesomeIcon
-            className={`${menuOpened ? '' : 'hidden'} w-5 h-5 sm:hidden`}
-            icon={faXmark}
-            size="lg"
-            onClick={toggleMenuIcon}
-          />
+  const closeMenu = () => {
+    setMenuOpened(false);
+  };
 
-          <div className="hidden sm:flex sm:gap-4">
-            {MENU_LIST.map((menu) => (
-              <Link key={menu.path} href={menu.path}>
-                <a className="font-semibold">{menu.name}</a>
-              </Link>
-            ))}
+  return (
+    <>
+      <nav className={`sticky top-0 z-50 navbar-background`}>
+        <div
+          className={`flex justify-between px-5 py-3 ${
+            menuOpened ? '' : 'navbar-border'
+          }`}
+        >
+          <Link href="/">
+            <a className="font-bold text-xl" onClick={closeMenu}>
+              {"Acccdang's Dev"}
+            </a>
+          </Link>
+          <div>
+            <div>
+              <FontAwesomeIcon
+                className="w-5 h-5 sm:hidden"
+                icon={menuOpened ? faXmark : faBars}
+                size="lg"
+                onClick={toggleMenuIcon}
+              />
+            </div>
+
+            <div className="hidden sm:flex sm:gap-4">
+              {MENU_LIST.map((menu) => (
+                <Link key={menu.path} href={menu.path}>
+                  <a className="font-semibold">{menu.name}</a>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className={`${menuOpened ? '' : 'hidden'} flex flex-col`}>
+      </nav>
+      <nav
+        className={`fixed flex flex-col top-[52px] w-full z-50 navbar-background ${
+          menuOpened
+            ? 'navbar-border scale-y-100 opacity-100'
+            : 'scale-y-0 opacity-0'
+        } origin-top transition-all sm:hidden`}
+      >
         {MENU_LIST.map((menu) => (
           <Link key={menu.path} href={menu.path}>
-            <a className="pl-4 py-3 font-semibold">{menu.name}</a>
+            <a className="pl-4 py-3 font-semibold" onClick={closeMenu}>
+              {menu.name}
+            </a>
           </Link>
         ))}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
