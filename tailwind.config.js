@@ -13,7 +13,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'bg-white-rgba': 'rgba(255, 255, 255, 0.8)',
+        'white-rgba-80%': 'rgba(255, 255, 255, 0.8)',
       },
     },
   },

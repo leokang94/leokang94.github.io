@@ -1,46 +1,67 @@
-import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+
+interface Menu {
+  name: string;
+  path: string;
+}
+const MENU_LIST: Readonly<Readonly<Menu>[]> = [
+  {
+    name: 'About',
+    path: '/about',
+  },
+  {
+    name: 'Blog',
+    path: 'blog',
+  },
+] as const;
 
 export default function Navbar() {
-  const [isScrollUp, setIsScrollUp] = useState(false);
-  const prevScroll = useRef(0);
+  const [menuOpened, setMenuOpened] = useState(false);
 
-  const handleScroll = () => {
-    const currScroll = window.scrollY;
-    const isScrollUp = prevScroll.current > currScroll;
-    setIsScrollUp(isScrollUp);
-
-    prevScroll.current = currScroll;
+  const toggleMenuIcon = () => {
+    setMenuOpened((prev) => !prev);
   };
-
-  const handleClickLogo = () => {
-    alert('Logo! TODO :: go to home');
-  };
-
-  const handleClickMenu = () => {
-    alert('Menu!');
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
     <nav
-      className={`sticky backdrop-blur-sm bg-bg-white-rgba duration-300 flex justify-between px-5 py-3 shadow-lg shadow-gray-500/10 z-50 ${
-        isScrollUp ? 'top-0' : '-top-14'
-      } `}
+      className={`sticky top-0 z-50 backdrop-blur-sm bg-white-rgba-80% shadow-lg shadow-gray-500/10 duration-300`}
     >
-      <div className="font-bold text-xl" onClick={handleClickLogo}>
-        {"Acccdang's Dev"}
+      <div className="flex justify-between px-5 py-3">
+        <Link href="/">
+          <a className="font-bold text-xl">{"Acccdang's Dev"}</a>
+        </Link>
+        <div>
+          <FontAwesomeIcon
+            className={`${menuOpened ? 'hidden' : ''} w-5 h-5 sm:hidden`}
+            icon={faBars}
+            size="lg"
+            onClick={toggleMenuIcon}
+          />
+          <FontAwesomeIcon
+            className={`${menuOpened ? '' : 'hidden'} w-5 h-5 sm:hidden`}
+            icon={faXmark}
+            size="lg"
+            onClick={toggleMenuIcon}
+          />
+
+          <div className="hidden sm:flex sm:gap-4">
+            {MENU_LIST.map((menu) => (
+              <Link key={menu.path} href={menu.path}>
+                <a className="font-semibold">{menu.name}</a>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="cursor-pointer" onClick={handleClickMenu}>
-        <FontAwesomeIcon icon={faBars} size="lg" />
+      <div className={`${menuOpened ? '' : 'hidden'} flex flex-col`}>
+        {MENU_LIST.map((menu) => (
+          <Link key={menu.path} href={menu.path}>
+            <a className="pl-4 py-3 font-semibold">{menu.name}</a>
+          </Link>
+        ))}
       </div>
     </nav>
   );
