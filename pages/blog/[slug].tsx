@@ -1,31 +1,56 @@
-import { getAllPosts, getPostBySlug } from '../../src/lib/blog';
+import withHead from '#components/hoc/withHead';
+import { getAllPosts, getPostBySlug } from '#lib/blog';
 
-interface StaticProps {
-  meta: any;
-  content: string;
+import type { Post, PostProps } from '#interface/blog.interface';
+
+function Post({ meta, content }: PostProps) {
+  return (
+    <div className="py-4">
+      <div>
+        <strong>slug:</strong> {meta.slug}
+      </div>
+      <div>
+        <strong>frontmatter</strong>
+        <ul className="list-disc list-inside ml-4">
+          {Object.entries(meta.frontmatter).map(([key, value]) => (
+            <li key={key}>
+              <span>
+                {key}: {value}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <strong>content</strong>
+        <div>{content}</div>
+      </div>
+    </div>
+  );
 }
-export default function Blog({ meta, content }: StaticProps) {
-  console.log('meta', meta);
-  console.log('content', content);
-  return <>{content}</>;
-}
+
+export default withHead(Post, {
+  title: 'Devlog',
+});
 
 interface StaticPropsParams {
   params: { slug: string };
 }
-export async function getStaticProps({ params: { slug } }: StaticPropsParams) {
+export function getStaticProps({ params: { slug } }: StaticPropsParams): {
+  props: PostProps;
+} {
   const post = getPostBySlug(slug);
-  const content = post.content;
+  const { content, ...meta } = post;
 
   return {
     props: {
-      meta: { ...post },
+      meta,
       content,
     },
   };
 }
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   const posts = getAllPosts();
   return {
     paths: posts.map((post) => ({ params: { slug: post.slug } })),

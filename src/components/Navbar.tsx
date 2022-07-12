@@ -5,7 +5,7 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface Menu {
   name: string;
-  path: string;
+  path: `/${string}`;
 }
 const MENU_LIST: Readonly<Readonly<Menu>[]> = [
   {
@@ -14,7 +14,7 @@ const MENU_LIST: Readonly<Readonly<Menu>[]> = [
   },
   {
     name: 'Blog',
-    path: 'blog',
+    path: '/blog',
   },
 ] as const;
 

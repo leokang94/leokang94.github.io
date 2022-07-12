@@ -1,18 +1,34 @@
+import { Profile, PostList } from '#components';
 import withHead from '#components/hoc/withHead';
-import Profile from '#components/Profile';
 
-import useProcessor from '../src/hook/useProcessor';
+import type { Post } from '#interface/blog.interface';
 
-function Home() {
+import { getAllPosts } from '#lib/blog';
+
+import useProcessor from '#hook/useProcessor';
+
+interface HomeProps {
+  posts: Post[];
+}
+function Home({ posts }: HomeProps) {
   const content = useProcessor('<h>test</h>');
 
   return (
     <>
       <Profile />
+      <PostList posts={posts} />
     </>
   );
 }
 
-export default withHead(Home, {
-  title: "Acccdang's Devlog",
-});
+export default withHead(Home);
+
+export function getStaticProps(): { props: HomeProps } {
+  const posts = getAllPosts();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}

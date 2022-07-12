@@ -3,10 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { markdownToHtml } from './unified';
 
+import type { Post } from '#interface/blog.interface';
+
 // Add markdown files in `src/content/blog`
 const postsDirectory = path.join(process.cwd(), 'src', 'content', 'blog');
 
-export function getPostBySlug(slug: string) {
+export function getPostBySlug(slug: string): Post {
   const realSlug = slug.replace(/\.md$/, '');
   const fullPath = path.join(postsDirectory, `${realSlug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -16,7 +18,7 @@ export function getPostBySlug(slug: string) {
     slug: realSlug,
     frontmatter: { ...data },
     content: markdownToHtml(content),
-  } as const;
+  };
 }
 
 export function getAllPosts() {
