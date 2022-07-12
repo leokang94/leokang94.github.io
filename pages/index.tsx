@@ -9,43 +9,6 @@ function Home() {
   return (
     <>
       <Profile />
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
-      <h1>asdf</h1>
     </>
   );
 }

@@ -32,11 +32,6 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@fontsource/noto-sans-kr@^4.5.10":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-kr/-/noto-sans-kr-4.5.10.tgz#74f25823aaeaef30a9e932348f885f8ee53cb797"
-  integrity sha512-TzJCeWiuLhFdcjDumAIRY05JapO3gKjJ8THEBOMG6S9FWl86yK1xqyz8RJaZxU6sYBDfqTTpQO3a5u7QjZooRA==
-
 "@fortawesome/fontawesome-common-types@6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.1.1.tgz#7dc996042d21fc1ae850e3173b5c67b0549f9105"
