@@ -1,31 +1,29 @@
 import withHead from '#components/hoc/withHead';
 import { getAllPosts, getPostBySlug } from '#lib/blog';
-
 import type { Post, PostProps } from '#interface/blog.interface';
 
-function Post({ meta, content }: PostProps) {
+import useProcessor from '#hook/useProcessor';
+
+function Post({ meta, content: rawContent }: PostProps) {
+  const {
+    frontmatter: { title, date },
+  } = meta;
+  const content = useProcessor(rawContent);
+
   return (
-    <div className="py-4">
-      <div>
-        <strong>slug:</strong> {meta.slug}
-      </div>
-      <div>
-        <strong>frontmatter</strong>
-        <ul className="list-disc list-inside ml-4">
-          {Object.entries(meta.frontmatter).map(([key, value]) => (
-            <li key={key}>
-              <span>
-                {key}: {value}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <strong>content</strong>
+    <section className="pt-16">
+      <header className="mb-12">
+        <h1 className="pb-2 border-b-2 border-blue-400 text-blue-400">
+          {title}
+        </h1>
+        <time dateTime={date} className="text-gray-400 font-extralight italic">
+          Posted at {date}
+        </time>
+      </header>
+      <section>
         <div>{content}</div>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
 

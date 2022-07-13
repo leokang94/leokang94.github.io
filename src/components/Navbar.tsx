@@ -39,7 +39,7 @@ export default function Navbar() {
         >
           <Link href="/">
             <a className="font-bold text-xl" onClick={closeMenu}>
-              {"Acccdang's Dev"}
+              악당의 Devlog
             </a>
           </Link>
           <div>

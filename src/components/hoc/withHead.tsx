@@ -4,7 +4,7 @@ import type {
   PostProps as PostComponentProps,
 } from '#interface/blog.interface';
 
-const DEFAULT_TITLE = 'Leo Devlog';
+const DEFAULT_TITLE = '악당의 Devlog';
 
 interface HeadOptionProps {
   title?: string;

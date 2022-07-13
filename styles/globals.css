@@ -1,8 +1,8 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.4/dist/web/static/pretendard.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.4/dist/web/variable/pretendardvariable.css');
 
 @layer base {
   html {
@@ -12,13 +12,13 @@
       sans-serif;
   }
   h1 {
-    @apply text-2xl font-bold mb-3;
+    @apply text-3xl font-bold mb-3;
   }
   h2 {
-    @apply text-xl font-semibold mb-2;
+    @apply text-2xl font-semibold mb-2;
   }
   h3 {
-    @apply text-lg;
+    @apply text-xl;
   }
   h4 {
     @apply text-base;
