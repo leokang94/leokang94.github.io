@@ -43,7 +43,7 @@ export default function Navbar() {
             </a>
           </Link>
           <div>
-            <div>
+            <div className="flex gap-4 sm:hidden">
               <FontAwesomeIcon
                 className="w-5 h-5 sm:hidden"
                 icon={menuOpened ? faXmark : faBars}
