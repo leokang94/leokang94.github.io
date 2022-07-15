@@ -42,7 +42,7 @@ export default function Navbar() {
               악당의 Devlog
             </a>
           </Link>
-          <div>
+          <div className="flex items-center">
             <div className="flex gap-4 sm:hidden">
               <FontAwesomeIcon
                 className="w-5 h-5 sm:hidden"
@@ -67,7 +67,7 @@ export default function Navbar() {
           menuOpened
             ? 'navbar-border scale-y-100 opacity-100'
             : 'scale-y-0 opacity-0'
-        } origin-top transition-all sm:hidden`}
+        } origin-top transition-all duration-300 sm:hidden`}
       >
         {MENU_LIST.map((menu) => (
           <Link key={menu.path} href={menu.path}>
