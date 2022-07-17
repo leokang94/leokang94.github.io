@@ -1,0 +1,6 @@
+.background {
+  @apply before:content-[''] before:absolute before:w-full before:h-full before:top-0 before:left-0 before:backdrop-blur-[2px] before:-z-[1] bg-white-rgba-80%;
+}
+.border {
+  @apply shadow-lg shadow-gray-500/10;
+}

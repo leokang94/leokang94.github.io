@@ -1,19 +1,19 @@
 const { homepage } = require('./package.json');
-const TsconfigPathsPlugins = require('tsconfig-paths-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: process.env.NODE_ENV === 'production' ? homepage : '',
+  assetPrefix: isProduction ? homepage : '',
   images: {
     loader: 'imgix',
-    path:
-      process.env.NODE_ENV === 'production'
-        ? homepage
-        : 'http://localhost:3000',
+    path: isProduction ? homepage : 'http://localhost:3000',
   },
   webpack: (config) => {
-    config.resolve.plugins.push(new TsconfigPathsPlugins());
+    // plugins
+    config.resolve.plugins.push(new TsconfigPathsPlugin());
 
     return config;
   },

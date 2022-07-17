@@ -31,15 +31,6 @@
   }
 }
 
-@layer utilities {
-  .navbar-background {
-    @apply backdrop-blur-sm bg-white-rgba-80%;
-  }
-  .navbar-border {
-    @apply shadow-lg shadow-gray-500/10;
-  }
-}
-
 /* html,
 body {
   padding: 0;

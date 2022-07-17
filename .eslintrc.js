@@ -5,7 +5,6 @@ module.exports = {
   },
   extends: [
     'next/core-web-vitals',
-    'next/link-passhref',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
