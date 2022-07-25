@@ -1,6 +1,8 @@
 const { homepage } = require('./package.json');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+const { withContentlayer } = require('next-contentlayer');
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 /** @type {import('next').NextConfig} */
@@ -19,4 +21,6 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+console.log('next config', nextConfig);
+
+module.exports = withContentlayer(nextConfig);

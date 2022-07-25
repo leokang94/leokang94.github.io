@@ -1,12 +1,11 @@
 import { PostList } from '#components';
 import withHead from '#components/hoc/withHead';
-import type { Post } from '#interface/blog.interface';
+import { allPosts, type Post } from 'contentlayer/generated';
 
-import { getAllPosts } from '#lib/blog';
 interface BlogProps {
   posts: Post[];
 }
-function Blog({ posts }: BlogProps) {
+function PostIndexPage({ posts }: BlogProps) {
   return (
     <div className="py-4">
       <PostList posts={posts} />
@@ -14,14 +13,12 @@ function Blog({ posts }: BlogProps) {
   );
 }
 
-export default withHead(Blog);
+export default withHead(PostIndexPage);
 
 export function getStaticProps(): { props: BlogProps } {
-  const posts = getAllPosts();
-
   return {
     props: {
-      posts,
+      posts: allPosts,
     },
   };
 }

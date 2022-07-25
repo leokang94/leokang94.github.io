@@ -1,8 +1,5 @@
 import Head from 'next/head';
-import type {
-  Post,
-  PostProps as PostComponentProps,
-} from '#interface/blog.interface';
+import { type PostPageProps } from '#interface/post.interface';
 
 const DEFAULT_TITLE = '악당의 Devlog';
 
@@ -15,8 +12,8 @@ export default function withHead<T>(
   { title = DEFAULT_TITLE, description }: HeadOptionProps = {},
 ) {
   // Post Page인 경우, title 조정
-  const isPostPage = (props: any): props is PostComponentProps => {
-    return !!(props as PostComponentProps).meta;
+  const isPostPage = (props: any): props is PostPageProps => {
+    return !!(props as PostPageProps).post;
   };
 
   const headHoc = (props: T) => {
@@ -24,9 +21,7 @@ export default function withHead<T>(
       <>
         <Head>
           <title>
-            {`${
-              isPostPage(props) ? `${props.meta.frontmatter.title} - ` : ''
-            }${title}`}
+            {`${isPostPage(props) ? `${props.post.title} - ` : ''}${title}`}
           </title>
           {description && <meta name="description" content={description} />}
           <link rel="icon" href="/favicon.ico" />
