@@ -21,6 +21,4 @@ const nextConfig = {
   },
 };
 
-console.log('next config', nextConfig);
-
 module.exports = withContentlayer(nextConfig);

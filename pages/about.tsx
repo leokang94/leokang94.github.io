@@ -1,12 +1,11 @@
-import withHead from '#components/hoc/withHead';
+import { NextSeo } from 'next-seo';
 import Profile from '#components/Profile';
 
-function About() {
+export default function About() {
   return (
-    <div>
+    <>
+      <NextSeo title="About" />
       <Profile />
-    </div>
+    </>
   );
 }
-
-export default withHead(About);
