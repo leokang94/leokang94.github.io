@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-import NavbarStyle from './NavBar.module.css';
+import style from './NavBar.module.css';
+
+export const NAV_BAR_HEIGHT = 52;
 
 interface Menu {
   name: string;
@@ -33,10 +35,8 @@ export default function Nav() {
 
   return (
     <nav
-      className={`sticky top-0 ${NavbarStyle['background']} z-50 
-        ${
-          menuOpened ? '' : NavbarStyle['border']
-        } transition-[box-shadow] duration-300`}
+      className={`sticky top-0 ${style.background} z-50 h-[${NAV_BAR_HEIGHT}px]
+        ${menuOpened ? '' : style.border} transition-[box-shadow] duration-300`}
     >
       <div className={`flex justify-between px-5 py-3`}>
         <Link href="/">
@@ -65,9 +65,9 @@ export default function Nav() {
       </div>
       {/* mobile menu */}
       <nav
-        className={`absolute top-[52px] flex flex-col w-full transition-all duration-300 ${
-          NavbarStyle['background']
-        } ${NavbarStyle['border']} ${
+        className={`absolute top-[${NAV_BAR_HEIGHT}px] flex flex-col w-full transition-all duration-300 ${
+          style.background
+        } ${style.border} ${
           menuOpened ? 'scale-y-100' : 'scale-y-0 text-white/0'
         } origin-top sm:hidden`}
       >

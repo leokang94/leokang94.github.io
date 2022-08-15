@@ -12,10 +12,10 @@
       sans-serif;
   }
   h1 {
-    @apply text-3xl font-bold mb-3;
+    @apply text-3xl font-bold my-3;
   }
   h2 {
-    @apply text-2xl font-semibold mb-2;
+    @apply text-2xl font-semibold my-2;
   }
   h3 {
     @apply text-xl;

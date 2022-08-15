@@ -1,3 +1,4 @@
+const path = require('path');
 const { homepage } = require('./package.json');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
@@ -12,6 +13,12 @@ const nextConfig = {
   images: {
     loader: 'imgix',
     path: isProduction ? homepage : 'http://localhost:3000',
+  },
+  sassOptions: {
+    includePaths: [
+      path.join(__dirname, 'styles'),
+      path.join(__dirname, 'src/components'),
+    ],
   },
   webpack: (config) => {
     // plugins

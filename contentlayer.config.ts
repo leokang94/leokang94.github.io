@@ -3,8 +3,11 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSection from '@agentofuser/rehype-section';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeToc from '@jsdevtools/rehype-toc';
+// import rehypeRewrite from 'rehype-rewrite';
+// import { Root, RootContent, Element } from 'hast';
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -34,8 +37,24 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'append' }],
+      // [
+      //   rehypeRewrite,
+      //   {
+      //     rewrite(
+      //       node: Root | RootContent,
+      //       index: number | null,
+      //       parent: Root | Element | null,
+      //     ) {
+      //       if (node.type === 'element' && node.tagName === 'h1') {
+      //         console.log('helo');
+      //         console.log(node, index, parent);
+      //       }
+      //     },
+      //   },
+      // ],
+      (rehypeSection as any).default,
       rehypeHighlight,
-      rehypeToc,
+      [rehypeToc, { headings: ['h1', 'h2'] }],
     ],
   },
 });

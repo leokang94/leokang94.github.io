@@ -8,6 +8,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 // elements
 import A from '#components/elements/A';
 import Count from '#components/elements/Count';
+import Toc from '#components/elements/Toc';
 
 export default function PostPage({ post }: PostPageProps) {
   const { title, publishedAt } = post;
@@ -29,7 +30,7 @@ export default function PostPage({ post }: PostPageProps) {
           </time>
         </header>
         <section>
-          <MDXComponent components={{ Count, a: A }} />
+          <MDXComponent components={{ Count, a: A, nav: Toc }} />
         </section>
       </section>
     </>
