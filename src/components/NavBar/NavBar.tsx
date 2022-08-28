@@ -41,7 +41,7 @@ export default function Nav() {
       <div className={`flex justify-between px-5 py-3`}>
         <Link href="/">
           <a className="font-bold text-xl" onClick={closeMenu}>
-            Leo의 Devlog
+            Devlog <span className="text-gray-300 font-light">by</span> Leo
           </a>
         </Link>
         <div className="flex items-center">

@@ -13,7 +13,7 @@ import Layout from '#components/Layout';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <DefaultSeo title="Leo의 Devlog" description="Leo의 Devlog입니다." />
+      <DefaultSeo title="Devlog By Leo" description="기록으로 정리하기" />
       <Component {...pageProps} />
     </Layout>
   );

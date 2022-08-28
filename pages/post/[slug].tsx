@@ -1,5 +1,10 @@
-// import withHead from '#components/hoc/withHead';
 import { NextSeo } from 'next-seo';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+
+dayjs.locale('ko');
+
+// contentlayer
 import { allPosts } from 'contentlayer/generated';
 import { type PostPageProps } from '#interface/post.interface';
 
@@ -26,7 +31,7 @@ export default function PostPage({ post }: PostPageProps) {
             dateTime={publishedAt}
             className="text-gray-400 font-extralight italic"
           >
-            Posted at {publishedAt}
+            {dayjs(publishedAt).format('YYYY년 MM월 DD일 (dddd)')}
           </time>
         </header>
         <section>
@@ -36,10 +41,6 @@ export default function PostPage({ post }: PostPageProps) {
     </>
   );
 }
-
-// export default withHead(PostPage, {
-//   title: 'Devlog',
-// });
 
 export function getStaticPaths() {
   return {
