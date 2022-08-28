@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect, useRef } from 'react';
-import SweetScroll from 'sweet-scroll';
-// import styles from './Toc.module.scss';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { animateScroll as scroll, Events } from 'react-scroll';
 import { NAV_BAR_HEIGHT } from '#components/NavBar';
 
 import style from './Toc.module.scss';
@@ -13,7 +12,6 @@ interface Link {
   anchor: HTMLAnchorElement;
   heading: HTMLHeadingElement;
   headingSection: HTMLElement | null;
-  //   visible: boolean;
 }
 
 interface TocProps {
@@ -23,6 +21,8 @@ export default function Toc({ children }: TocProps) {
   const [h1s, setH1s] = useState<Link[]>([]);
   const [h2s, setH2s] = useState<Link[]>([]);
   const currentH2AnchorRef = useRef<HTMLAnchorElement | null>(null);
+  const h1sObserverRef = useRef<IntersectionObserver | null>(null);
+  const h2sObserverRef = useRef<IntersectionObserver | null>(null);
   const router = useRouter();
 
   function getHeadingInfos(headingType: 'h1' | 'h2') {
@@ -42,6 +42,56 @@ export default function Toc({ children }: TocProps) {
     });
   }
 
+  function active(h: Link) {
+    if (h.heading.tagName.toLowerCase() === 'h1') {
+      h.anchor.classList.add('active');
+    } else {
+      // h2
+      const parentH1Anchor = h.anchor
+        .closest('.toc-item-h1')
+        ?.querySelector('a');
+
+      parentH1Anchor?.classList.add('active-backsite');
+      currentH2AnchorRef.current = h.anchor;
+      h.anchor.classList.add('active');
+    }
+  }
+
+  function inactive(h: Link) {
+    if (h.heading.tagName.toLowerCase() === 'h1') {
+      h.anchor.classList.remove('active');
+      h.anchor.classList.remove('active-backsite');
+    } else {
+      // h2
+      if (currentH2AnchorRef.current === h.anchor) {
+        const parentH1Anchor = h.anchor
+          .closest('.toc-item-h1')
+          ?.querySelector('a');
+        parentH1Anchor?.classList.remove('active-backsite');
+      }
+
+      h.anchor.classList.remove('active');
+    }
+  }
+
+  const observe = useCallback(() => {
+    if (h1s.length) {
+      h1s.forEach(({ headingSection }) => {
+        headingSection && h1sObserverRef.current?.observe(headingSection);
+      });
+    }
+    if (h2s.length) {
+      h2s.forEach(({ headingSection }) => {
+        headingSection && h2sObserverRef.current?.observe(headingSection);
+      });
+    }
+  }, [h1s, h2s]);
+
+  const unobserve = useCallback(() => {
+    h1sObserverRef.current?.disconnect();
+    h2sObserverRef.current?.disconnect();
+  }, []);
+
   useEffect(() => {
     const _h1s = getHeadingInfos('h1');
     const _h2s = getHeadingInfos('h2');
@@ -60,10 +110,9 @@ export default function Toc({ children }: TocProps) {
 
         if (h1) {
           if (entry.isIntersecting) {
-            h1.anchor.classList.add('active');
+            active(h1);
           } else {
-            h1.anchor.classList.remove('active');
-            h1.anchor.classList.remove('active-backsite');
+            inactive(h1);
           }
         }
       });
@@ -77,61 +126,95 @@ export default function Toc({ children }: TocProps) {
 
         if (h2) {
           if (entry.isIntersecting) {
-            const parentH1Anchor = h2.anchor
-              .closest('.toc-item-h1')
-              ?.querySelector('a');
-
-            parentH1Anchor?.classList.add('active-backsite');
-            currentH2AnchorRef.current = h2.anchor;
-            h2.anchor.classList.add('active');
+            active(h2);
           } else {
-            if (currentH2AnchorRef.current === h2.anchor) {
-              const parentH1Anchor = h2.anchor
-                .closest('.toc-item-h1')
-                ?.querySelector('a');
-
-              parentH1Anchor?.classList.remove('active-backsite');
-            }
-
-            h2.anchor.classList.remove('active');
+            inactive(h2);
           }
         }
       });
     };
 
-    const viewportHeight =
-      window.innerHeight - (NAV_BAR_HEIGHT + OBSERVER_RANGE);
-    const h1sObserver = new IntersectionObserver(handleH1sObserver, {
-      //   rootMargin: `${-(NAV_BAR_HEIGHT + EXTRA)}px 0px ${-(
-      //     viewportHeight - EXTRA
-      //   )}px 0px`,
-      rootMargin: `0px 0px ${-(window.innerHeight - 1)}px 0px`,
-      threshold: 0,
-    });
-    const h2sObserver = new IntersectionObserver(handleH2sObserver, {
-      //   rootMargin: `${-(NAV_BAR_HEIGHT + EXTRA)}px 0px ${-(
-      //     viewportHeight - EXTRA
-      //   )}px 0px`,
-      rootMargin: `0px 0px ${-(window.innerHeight - 1)}px 0px`,
-      threshold: 0,
-    });
-
-    if (h1s.length) {
-      h1s.forEach(({ headingSection }) => {
-        headingSection && h1sObserver?.observe(headingSection);
+    if (h1s.length && h2s.length) {
+      const viewportHeight =
+        window.innerHeight - (NAV_BAR_HEIGHT + OBSERVER_RANGE);
+      h1sObserverRef.current = new IntersectionObserver(handleH1sObserver, {
+        rootMargin: `${-(NAV_BAR_HEIGHT + EXTRA)}px 0px ${-(
+          viewportHeight - EXTRA
+        )}px 0px`,
+        threshold: 0,
       });
+      h2sObserverRef.current = new IntersectionObserver(handleH2sObserver, {
+        rootMargin: `${-(NAV_BAR_HEIGHT + EXTRA)}px 0px ${-(
+          viewportHeight - EXTRA
+        )}px 0px`,
+        threshold: 0,
+      });
+
+      observe();
     }
-    if (h2s.length) {
-      h2s.forEach(({ headingSection }) => {
-        headingSection && h2sObserver?.observe(headingSection);
+
+    return () => {
+      h1sObserverRef.current?.disconnect();
+      h2sObserverRef.current?.disconnect();
+    };
+  }, [h1s, h2s, observe]);
+
+  useEffect(() => {
+    const tocElement = document.querySelector(`.${style.toc}`);
+
+    const handleClickTocElement = (e: MouseEvent) => {
+      const h =
+        h1s.find((h1) => h1.anchor === e.target) ||
+        h2s.find((h2) => h2.anchor === e.target);
+
+      if (h) {
+        h1s.forEach((h1) => {
+          h1.anchor.classList.remove('active');
+          h1.anchor.classList.remove('active-backsite');
+        });
+        h2s.forEach((h2) => h2.anchor.classList.remove('active'));
+
+        active(h);
+
+        scroll.scrollTo(
+          window.scrollY +
+            h.heading.getBoundingClientRect().top -
+            (NAV_BAR_HEIGHT + EXTRA),
+          {
+            duration: 500,
+            smooth: 'easeOutQuart',
+          },
+        );
+      }
+    };
+
+    (tocElement as HTMLElement)?.addEventListener(
+      'click',
+      handleClickTocElement,
+    );
+
+    return () =>
+      (tocElement as HTMLElement)?.removeEventListener(
+        'click',
+        handleClickTocElement,
+      );
+  }, [h1s, h2s, router]);
+
+  useEffect(() => {
+    if (h1s.length && h2s.length) {
+      Events.scrollEvent.register('begin', () => {
+        unobserve();
+      });
+      Events.scrollEvent.register('end', () => {
+        observe();
       });
     }
 
     return () => {
-      h1sObserver?.disconnect();
-      h2sObserver?.disconnect();
+      Events.scrollEvent.remove('begin');
+      Events.scrollEvent.remove('end');
     };
-  }, [h1s, h2s]);
+  }, [h1s, h2s, observe, unobserve]);
 
   return <nav className={`${style.toc}`}>{children}</nav>;
 }
