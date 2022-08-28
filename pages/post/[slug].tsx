@@ -26,7 +26,7 @@ export default function PostPage({ post }: PostPageProps) {
             dateTime={publishedAt}
             className="text-gray-400 font-extralight italic"
           >
-            Posted at {publishedAt} (test)
+            Posted at {publishedAt}
           </time>
         </header>
         <section>

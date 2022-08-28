@@ -1,7 +1,7 @@
 {
-  "name": "acccdang.github.io",
+  "name": "leokang94.github.io",
   "version": "0.1.0",
-  "homepage": "https://acccdang.github.io/",
+  "homepage": "https://leokang94.github.io/",
   "private": true,
   "scripts": {
     "dev": "next dev",
