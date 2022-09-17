@@ -13,11 +13,14 @@ import '../styles/highlightjs-dracula.css';
 import type { AppProps } from 'next/app';
 import Layout from '#components/Layout';
 
+const env = process.env.NODE_ENV;
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <Head>
-        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </Head>
       <DefaultSeo
         openGraph={{
@@ -27,10 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           site_name: 'LeoLog',
           images: [
             {
-              url: '/og-default-image.png',
+              url: `${pkg.homepage}og-default-image.png`,
               width: 1200,
               height: 630,
-              alt: 'og image alt',
+              alt: 'og-default-image',
               type: 'image/png',
             },
           ],
