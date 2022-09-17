@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+
+import Logo from '#components/Logo';
 
 import style from './NavBar.module.css';
 
@@ -40,8 +43,8 @@ export default function Nav() {
     >
       <div className={`flex justify-between px-5 py-3`}>
         <Link href="/">
-          <a className="font-bold text-xl" onClick={closeMenu}>
-            Devlog <span className="text-gray-300 font-light">by</span> Leo
+          <a onClick={closeMenu}>
+            <Logo />
           </a>
         </Link>
         <div className="flex items-center">

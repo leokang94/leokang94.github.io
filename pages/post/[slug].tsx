@@ -1,4 +1,5 @@
 import { NextSeo } from 'next-seo';
+import pkg from '#/package.json';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
@@ -17,12 +18,20 @@ import Toc from '#components/elements/Toc';
 
 export default function PostPage({ post }: PostPageProps) {
   console.log('toc', <Toc />);
-  const { title, publishedAt } = post;
+  const { title, slug, publishedAt } = post;
   const MDXComponent = useMDXComponent(post.body.code);
 
   return (
     <>
-      <NextSeo title={`${title} | devlog by leo`} />
+      <NextSeo
+        title={title}
+        openGraph={{
+          type: 'article',
+          url: `${pkg.homepage}post/${slug}`,
+          title,
+          description: 'hello world',
+        }}
+      />
       <section className="pt-16">
         <header className="mb-12">
           <h1 className="pb-2 border-b-2 border-blue-400 text-blue-400">

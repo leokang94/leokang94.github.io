@@ -59,10 +59,9 @@ export default function Profile() {
         </div>
         <p className="text-gray-500 font-light">
           정확히 아는것을 중요하게 생각합니다.
-          <p>
-            다양한 기술에 관심이 있지만, 현재는 프론트엔드 개발을 주력으로 하고
-            있습니다.
-          </p>
+          <br />
+          다양한 기술에 관심이 있지만, 현재는 프론트엔드 개발을 주력으로 하고
+          있습니다.
         </p>
       </div>
     </div>
