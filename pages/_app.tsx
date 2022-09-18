@@ -1,5 +1,6 @@
 import { DefaultSeo } from 'next-seo';
 import pkg from '#/package.json';
+import { SITE_NAME } from '#constants/constant';
 
 import Head from 'next/head';
 
@@ -13,8 +14,6 @@ import '../styles/highlightjs-dracula.css';
 import type { AppProps } from 'next/app';
 import Layout from '#components/Layout';
 
-const env = process.env.NODE_ENV;
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
@@ -27,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           locale: 'ko_KR',
           url: pkg.homepage,
-          site_name: 'LeoLog',
+          site_name: SITE_NAME,
           images: [
             {
               url: `${pkg.homepage}og-default-image.png`,

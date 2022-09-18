@@ -23,6 +23,7 @@
       "#hook/*": ["./src/hook/*"],
       "#lib/*": ["./src/lib/*"],
       "#interface/*": ["./src/interface/*"],
+      "#constants/*": ["./src/constants/*"],
       "#/*": ["./*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     }
