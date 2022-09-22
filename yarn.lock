@@ -6227,6 +6227,11 @@ svgo@^2.8.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+tailwindcss-easing@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/tailwindcss-easing/-/tailwindcss-easing-0.1.3.tgz#9161c4c982bb7470ae0cf73ddcb18b319181debc"
+  integrity sha512-OXpuqGiczNOqwbQb/YZA8Eql0OemWAW/A+jkgBkspKyMwdPXDrMf/NS2iXPnusPTEYV7Fpnz8aXUCI12BhMvOg==
+
 tailwindcss@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.1.4.tgz#64b09059805505902139fa805d97046080bd90b9"

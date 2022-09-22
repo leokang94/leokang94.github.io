@@ -11,16 +11,19 @@ import style from './NavBar.module.css';
 export const NAV_BAR_HEIGHT = 52;
 
 interface Menu {
+  nameAlphabet: string;
   name: string;
   path: `/${string}`;
 }
 const MENU_LIST: Readonly<Readonly<Menu>[]> = [
   {
-    name: 'About',
+    nameAlphabet: 'A',
+    name: 'bout',
     path: '/about',
   },
   {
-    name: 'Blog',
+    nameAlphabet: 'B',
+    name: 'log',
     path: '/post',
   },
 ] as const;
@@ -41,7 +44,9 @@ export default function Nav() {
       className={`sticky top-0 ${style.background} z-50 h-[${NAV_BAR_HEIGHT}px]
         ${menuOpened ? '' : style.border} transition-[box-shadow] duration-300`}
     >
-      <div className={`flex justify-between px-5 py-3`}>
+      <div
+        className={`flex justify-between px-5 py-3 lg:max-w-screen-lg lg:m-auto`}
+      >
         <Link href="/">
           <a onClick={closeMenu}>
             <Logo />
@@ -60,7 +65,12 @@ export default function Nav() {
           <div className="hidden sm:flex sm:gap-4">
             {MENU_LIST.map((menu) => (
               <Link key={menu.path} href={menu.path}>
-                <a className="font-semibold">{menu.name}</a>
+                <a>
+                  <span className="font-medium text-leo-green-dark">
+                    {menu.nameAlphabet}
+                  </span>
+                  <span className="font-light text-gray-300">{menu.name}</span>
+                </a>
               </Link>
             ))}
           </div>
@@ -76,8 +86,11 @@ export default function Nav() {
       >
         {MENU_LIST.map((menu) => (
           <Link key={menu.path} href={menu.path}>
-            <a className="pl-4 py-3 font-semibold" onClick={closeMenu}>
-              {menu.name}
+            <a className="pl-4 py-3" onClick={closeMenu}>
+              <span className="font-medium text-leo-green-dark">
+                {menu.nameAlphabet}
+              </span>
+              <span className="font-light text-gray-300">{menu.name}</span>
             </a>
           </Link>
         ))}
