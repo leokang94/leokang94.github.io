@@ -69,7 +69,7 @@ export default function Nav() {
                   <span className="font-medium text-leo-green-dark">
                     {menu.nameAlphabet}
                   </span>
-                  <span className="font-light text-gray-300">{menu.name}</span>
+                  <span className="text-gray-400">{menu.name}</span>
                 </a>
               </Link>
             ))}
@@ -87,10 +87,10 @@ export default function Nav() {
         {MENU_LIST.map((menu) => (
           <Link key={menu.path} href={menu.path}>
             <a className="pl-4 py-3" onClick={closeMenu}>
-              <span className="font-medium text-leo-green-dark">
+              <span className="font-semibold text-leo-green-dark">
                 {menu.nameAlphabet}
               </span>
-              <span className="font-light text-gray-300">{menu.name}</span>
+              <span className=" text-gray-400">{menu.name}</span>
             </a>
           </Link>
         ))}

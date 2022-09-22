@@ -17,7 +17,7 @@ export default function Profile() {
     );
     const wrapperIntervalId = setInterval(
       () => setAffixIndex((index) => index + 1),
-      6000,
+      3000,
     );
 
     return () => {
@@ -40,7 +40,7 @@ export default function Profile() {
       </div>
 
       <div className="flex flex-col items-center gap-1 w-full">
-        <div className="flex gap-[0.4rem] text-xl mb-3 transition-[font-size] ease-out-back duration-300 sm:text-2xl md:text-3xl">
+        <div className="flex gap-[0.4rem] text-xl mb-1 transition-[font-size] ease-out-back duration-300 sm:text-2xl md:text-3xl md:mb-3">
           <TextTransition springConfig={presets.gentle} direction="down" inline>
             {PREFIXES[affixIndex % PREFIXES.length]}
           </TextTransition>
