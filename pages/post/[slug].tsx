@@ -2,9 +2,6 @@ import { NextSeo } from 'next-seo';
 import pkg from '#/package.json';
 import { SITE_NAME } from '#constants/constant';
 import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
-
-dayjs.locale('ko');
 
 // contentlayer
 import { allPosts } from 'contentlayer/generated';
@@ -35,14 +32,14 @@ export default function PostPage({ post }: PostPageProps) {
       />
       <section className="pt-16">
         <header className="mb-12">
-          <h1 className="pb-2 border-b-2 border-blue-400 text-blue-400">
+          <h1 className="pb-2 border-b-2 border-leo-green-dark text-leo-green-dark">
             {title}
           </h1>
           <time
             dateTime={publishedAt}
             className="text-gray-400 font-extralight italic"
           >
-            {dayjs(publishedAt).format('YYYY년 MM월 DD일 (dddd)')}
+            {dayjs(publishedAt).format('MMMM DD, YYYY (dddd)')}
           </time>
         </header>
         <section>

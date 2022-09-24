@@ -1,19 +1,24 @@
 import Link from 'next/link';
 import { type Post } from 'contentlayer/generated';
 
+import PostItem from './PostItem';
+
 interface PostListProps {
   posts: Post[];
 }
 export default function PostList({ posts }: PostListProps) {
   return (
-    <ul className="list-disc list-inside">
-      {posts.map(({ slug, title }) => (
-        <Link key={slug} href={{ pathname: '/post/[slug]', query: { slug } }}>
-          <li className="cursor-pointer hover:text-blue-400 transition-colors">
-            {title}
-          </li>
+    <div className="flex flex-col">
+      {posts.map((post) => (
+        <Link
+          key={post.slug}
+          href={{ pathname: '/post/[slug]', query: { slug: post.slug } }}
+        >
+          <a className="w-full">
+            <PostItem post={post} />
+          </a>
         </Link>
       ))}
-    </ul>
+    </div>
   );
 }
