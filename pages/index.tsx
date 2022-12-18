@@ -1,5 +1,5 @@
 import { Profile, PostList } from '#components';
-import { allPosts, type Post } from 'contentlayer/generated';
+import { allPosts, Post } from 'contentlayer/generated';
 
 interface HomeProps {
   posts: Post[];

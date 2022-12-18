@@ -1,4 +1,4 @@
-import { type Post } from 'contentlayer/generated';
+import { Post } from 'contentlayer/generated';
 import dayjs from 'dayjs';
 
 interface PostProps {

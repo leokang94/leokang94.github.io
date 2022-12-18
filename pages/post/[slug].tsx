@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 // contentlayer
 import { allPosts } from 'contentlayer/generated';
-import { type PostPageProps } from '#interface/post.interface';
+import { PostPageProps } from '#interface/post.interface';
 
 import { useMDXComponent } from 'next-contentlayer/hooks';
 
@@ -43,7 +43,13 @@ export default function PostPage({ post }: PostPageProps) {
           </time>
         </header>
         <section>
-          <MDXComponent components={{ Count, a: A, nav: Toc }} />
+          <MDXComponent
+            components={{
+              Count,
+              a: A,
+              nav: Toc,
+            }}
+          />
         </section>
       </section>
     </>

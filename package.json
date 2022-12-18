@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@agentofuser/rehype-section": "^1.0.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
@@ -44,9 +46,11 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "serve": "^14.0.1",
+    "twin.macro": "^3.1.0",
     "unified": "^10.1.2"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.10.5",
     "@svgr/webpack": "^6.3.1",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
@@ -55,6 +59,7 @@
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "autoprefixer": "^10.4.7",
+    "babel-plugin-macros": "^3.1.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.6",

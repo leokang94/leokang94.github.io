@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { type Post } from 'contentlayer/generated';
+import { Post } from 'contentlayer/generated';
 
 import PostItem from './PostItem';
 

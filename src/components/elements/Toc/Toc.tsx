@@ -3,7 +3,8 @@ import { useEffect, useRef, useCallback } from 'react';
 import { animateScroll as scroll } from 'react-scroll';
 import { NAV_BAR_HEIGHT } from '#components/NavBar';
 
-import style from './Toc.module.scss';
+import tw, { screen } from 'twin.macro';
+import styled from '@emotion/styled/macro';
 
 const EXTRA = 10;
 const OBSERVER_RANGE = 1;
@@ -18,6 +19,7 @@ interface TocProps {
   children?: React.ReactElement;
 }
 export default function Toc({ children }: TocProps) {
+  const tocRef = useRef<HTMLElement>(null);
   const linksRef = useRef<{ h1: Link[]; h2: Link[] }>();
   const currentH2AnchorRef = useRef<HTMLAnchorElement | null>(null);
   const h1sObserverRef = useRef<IntersectionObserver | null>(null);
@@ -25,20 +27,22 @@ export default function Toc({ children }: TocProps) {
   const router = useRouter();
 
   function getHeadingInfos(headingType: 'h1' | 'h2') {
-    return [
-      ...document.querySelectorAll(
-        `.${style.toc} .toc-item-${headingType} > a`,
-      ),
-    ].map((node): Link => {
-      const anchor = node as HTMLAnchorElement;
-      const hash = decodeURIComponent(
-        anchor.hash.substring(1, anchor.hash.length),
-      );
-      const heading = document.getElementById(hash) as HTMLHeadingElement;
-      const headingSection = heading.parentElement;
+    if (tocRef.current) {
+      return [
+        ...tocRef.current.querySelectorAll(`.toc-item-${headingType} > a`),
+      ].map((node): Link => {
+        const anchor = node as HTMLAnchorElement;
+        const hash = decodeURIComponent(
+          anchor.hash.substring(1, anchor.hash.length),
+        );
+        const heading = document.getElementById(hash) as HTMLHeadingElement;
+        const headingSection = heading.parentElement;
 
-      return { anchor, heading, headingSection };
-    });
+        return { anchor, heading, headingSection };
+      });
+    }
+
+    return [];
   }
 
   function active({ heading, anchor }: Link) {
@@ -156,28 +160,24 @@ export default function Toc({ children }: TocProps) {
 
   // toc click event 세팅
   useEffect(() => {
-    const tocElement = document.querySelector(`.${style.toc}`);
+    const tocElement = tocRef.current;
 
     const handleClickTocElement = (e: MouseEvent) => {
       const link =
         linksRef.current?.h1.find((h1) => h1.anchor === e.target) ||
         linksRef.current?.h2.find((h2) => h2.anchor === e.target);
 
+      console.log(link);
+
       if (link) {
         moveToHeading(link);
       }
     };
 
-    (tocElement as HTMLElement)?.addEventListener(
-      'click',
-      handleClickTocElement,
-    );
+    tocElement?.addEventListener('click', handleClickTocElement);
 
     return () =>
-      (tocElement as HTMLElement)?.removeEventListener(
-        'click',
-        handleClickTocElement,
-      );
+      tocElement?.removeEventListener('click', handleClickTocElement);
   }, [router, moveToHeading]);
 
   // hash를 가진 채로 접근 시 세팅
@@ -195,5 +195,38 @@ export default function Toc({ children }: TocProps) {
     }
   }, [moveToHeading]);
 
-  return <nav className={`${style.toc}`}>{children}</nav>;
+  return <StyledToc ref={tocRef}>{children}</StyledToc>;
 }
+
+const StyledToc = styled.nav`
+  ${tw`hidden`}
+  ${screen`lg`({
+    ...tw`block fixed top-48 left-[calc((100vw+768px)/2+2rem)] pl-3`,
+  })}
+
+  a {
+    ${tw`inline-block no-underline`}
+  }
+
+  .toc-item {
+    &.toc-item-h1 {
+      a {
+        ${tw`text-zinc-400 transition-all origin-left duration-300 hover:text-leo-green-dark`}
+        &.active {
+          ${tw`text-leo-green-dark scale-110`}
+        }
+        &.active-backsite {
+          ${tw`text-leo-green-dark text-opacity-50 scale-110`}
+        }
+      }
+    }
+    &.toc-item-h2 {
+      a {
+        ${tw`text-zinc-300 ml-3 text-sm transition-all origin-left duration-300 hover:text-leo-green-dark`}
+        &.active {
+          ${tw`text-leo-green-dark scale-110`}
+        }
+      }
+    }
+  }
+`;

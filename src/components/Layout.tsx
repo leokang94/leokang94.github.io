@@ -9,7 +9,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className="flex flex-col h-auto min-h-[100vh]">
       <Navbar />
       <main className="flex-1 px-4">
-        <div className="m-auto lg:max-w-screen-lg">{children}</div>
+        <div className="m-auto md:max-w-screen-md">{children}</div>
       </main>
       <Footer />
     </div>
