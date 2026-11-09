@@ -8,7 +8,13 @@
 <script>
   const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
   const root = document.documentElement;
-  const sync = () => button?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+  const themeColorMetas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+  const sync = () => {
+    button?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+    // Browser UI (mobile address bar) follows the chosen theme, not just the OS setting.
+    const paper = getComputedStyle(root).getPropertyValue('--paper').trim();
+    themeColorMetas.forEach((meta) => (meta.content = paper));
+  };
   sync();
 
   button?.addEventListener('click', () => {
