@@ -1,0 +1,57 @@
+---
+import { GISCUS } from '@/site.config';
+---
+
+<section class="comments" aria-label="댓글" data-pagefind-ignore>
+  <div
+    class="giscus-host"
+    data-repo={GISCUS.repo}
+    data-repo-id={GISCUS.repoId}
+    data-category={GISCUS.category}
+    data-category-id={GISCUS.categoryId}
+  >
+  </div>
+</section>
+
+<script>
+  const host = document.querySelector<HTMLElement>('.giscus-host');
+  const themeOf = (theme?: string) => (theme === 'dark' ? 'dark_dimmed' : 'light');
+
+  if (host) {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    Object.entries({
+      repo: host.dataset.repo,
+      repoId: host.dataset.repoId,
+      category: host.dataset.category,
+      categoryId: host.dataset.categoryId,
+      mapping: 'pathname',
+      strict: '1',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'top',
+      lang: 'ko',
+      loading: 'lazy',
+      theme: themeOf(document.documentElement.dataset.theme),
+    }).forEach(([key, value]) => {
+      if (value) script.dataset[key] = value;
+    });
+    host.append(script);
+
+    document.addEventListener('themechange', (event) => {
+      const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+      frame?.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: themeOf((event as CustomEvent<string>).detail) } } },
+        'https://giscus.app',
+      );
+    });
+  }
+</script>
+
+<style>
+  .comments {
+    margin-top: var(--space-6);
+  }
+</style>

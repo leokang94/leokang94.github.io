@@ -1,0 +1,52 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostList from '@/components/PostList.astro';
+import { getPosts } from '@/lib/posts';
+import { SITE } from '@/site.config';
+
+const allPosts = await getPosts();
+const recentPosts = allPosts.slice(0, 10);
+---
+
+<BaseLayout>
+  <p class="intro">{SITE.description}</p>
+
+  {
+    recentPosts.length > 0 ? (
+      <>
+        <PostList posts={recentPosts} />
+        <div class="more-link">
+          <a href="/posts/">전체 글 보기</a>
+        </div>
+      </>
+    ) : (
+      <p class="empty">아직 공개된 글이 없습니다.</p>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .intro {
+    color: var(--muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .more-link {
+    margin-top: var(--space-4);
+  }
+
+  .more-link a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .more-link a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .empty {
+    color: var(--muted);
+  }
+</style>

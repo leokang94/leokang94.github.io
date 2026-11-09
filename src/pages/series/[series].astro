@@ -1,0 +1,103 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getPosts, groupBySeries, slugify, postUrl, formatDate } from '@/lib/posts';
+
+export async function getStaticPaths() {
+  const allPosts = await getPosts();
+  const seriesMap = groupBySeries(allPosts);
+
+  return [...seriesMap.entries()].map(([series, posts]) => ({
+    params: { series: slugify(series) },
+    props: { series, posts },
+  }));
+}
+
+interface Props {
+  series: string;
+  posts: Awaited<ReturnType<typeof getPosts>>;
+}
+
+const { series, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={series}
+  description={`${series} 시리즈 — ${posts.length}편`}
+>
+  <h1>{series}</h1>
+  <p class="count">{posts.length}편</p>
+
+  <ol class="series-list" role="list">
+    {posts.map((post, i) => (
+      <li class="series-row">
+        <span class="series-num" aria-hidden="true">{i + 1}.</span>
+        <div class="series-body">
+          <a href={postUrl(post)} class="series-title">{post.data.title}</a>
+          <time
+            class="series-date"
+            datetime={post.data.publishedAt.toISOString()}
+          >
+            {formatDate(post.data.publishedAt)}
+          </time>
+        </div>
+      </li>
+    ))}
+  </ol>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .count {
+    color: var(--muted);
+    font-size: var(--step--1);
+    margin-bottom: var(--space-4);
+  }
+
+  .series-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .series-row {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    gap: 0 var(--space-2);
+    align-items: baseline;
+  }
+
+  .series-num {
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .series-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .series-title {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .series-title:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .series-date {
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,180 @@
+@import './fonts.css';
+
+/* ---------- tokens ---------- */
+:root {
+  --paper: #eef1f4;
+  --paper-raised: #e3e8ed;
+  --ink: #1c2430;
+  --muted: #5b6676;
+  --rule: #cdd4dc;
+  --accent: #2e5e4e;
+  --highlight: #f2e14c;
+  --highlight-ink: #1c2430;
+  --code-bg: #e5e9ee;
+
+  --font-body: 'MaruBuri', 'Apple SD Gothic Neo', 'Noto Serif KR', serif;
+  --font-code: 'D2Coding', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* modular scale 1.25 on 18px body */
+  --step--1: 0.889rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.563rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+
+  /* ~40 Hangul syllables per line; `ch` undercounts full-width glyphs */
+  --measure: 40rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --paper: #1a2230;
+  --paper-raised: #222c3c;
+  --ink: #dce3ec;
+  --muted: #8e9aab;
+  --rule: #333f52;
+  --accent: #7fc4a6;
+  /* Opaque amber: a translucent yellow blends with the navy paper into olive. */
+  --highlight: #866b00;
+  --highlight-ink: #f4f6f9;
+  --code-bg: #141b27;
+
+  color-scheme: dark;
+}
+
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 112.5%;
+  /* 18px */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 106.25%;
+    /* 17px */
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--highlight);
+  color: var(--highlight-ink);
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-code);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The single bold device: a highlighter stroke, slightly tilted at both ends. */
+.marker {
+  background-image: linear-gradient(100deg,
+      transparent 0.4em,
+      var(--highlight) 0.55em,
+      var(--highlight) calc(100% - 0.5em),
+      transparent calc(100% - 0.3em));
+  background-repeat: no-repeat;
+  background-size: 100% 0.5em;
+  background-position: 0 88%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-inline: 0.15em;
+  margin-inline: -0.15em;
+}
+
+/* ---------- shiki dual theme ---------- */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+}
+
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+}

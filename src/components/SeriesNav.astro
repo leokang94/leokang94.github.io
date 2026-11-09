@@ -1,0 +1,75 @@
+---
+import { getPosts, groupBySeries, postUrl, seriesUrl, type Post } from '@/lib/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const series = post.data.series;
+const list = series ? (groupBySeries(await getPosts()).get(series) ?? []) : [];
+const index = list.findIndex((p) => p.id === post.id);
+const prev = index > 0 ? list[index - 1] : undefined;
+const next = index >= 0 ? list[index + 1] : undefined;
+---
+
+{
+  series && index >= 0 && (
+    <nav class="series-nav" aria-label="시리즈" data-pagefind-ignore>
+      <p>
+        <a href={seriesUrl(series)}>{series}</a> 시리즈 {index + 1} / {list.length}
+      </p>
+      {(prev || next) && (
+        <ul>
+          {prev && (
+            <li>
+              <span>이전 글</span>
+              <a href={postUrl(prev)} rel="prev">
+                {prev.data.title}
+              </a>
+            </li>
+          )}
+          {next && (
+            <li>
+              <span>다음 글</span>
+              <a href={postUrl(next)} rel="next">
+                {next.data.title}
+              </a>
+            </li>
+          )}
+        </ul>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .series-nav {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+    font-size: var(--step--1);
+  }
+
+  p {
+    color: var(--muted);
+  }
+
+  ul {
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: var(--space-3);
+  }
+
+  span {
+    color: var(--muted);
+  }
+</style>

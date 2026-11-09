@@ -1,0 +1,130 @@
+---
+import type { Post } from '@/lib/posts';
+import { groupByYear, postUrl, formatMonthDay } from '@/lib/posts';
+import TagList from '@/components/TagList.astro';
+
+interface Props {
+  posts: Post[];
+  groupByYear?: boolean;
+}
+
+const { posts, groupByYear: grouped = true } = Astro.props;
+
+// Build year groups: Map<year, Post[]> sorted by year desc
+const yearGroups: Array<[number, Post[]]> = (() => {
+  if (!grouped) return [[0, posts]];
+  const map = groupByYear(posts);
+  return [...map.entries()].sort((a, b) => b[0] - a[0]);
+})();
+---
+
+{
+  yearGroups.map(([year, yearPosts]) => (
+    <section
+      class="year-group"
+      aria-labelledby={grouped ? `year-${year}` : undefined}
+    >
+      {grouped && (
+        <h2 class="year-heading" id={`year-${year}`}>
+          {year}
+        </h2>
+      )}
+      <ol class="post-list" role="list">
+        {yearPosts.map((post) => (
+          <li class="post-row">
+            <article>
+              <div class="post-row-inner">
+                <time
+                  class="post-date"
+                  datetime={post.data.publishedAt.toISOString()}
+                >
+                  {formatMonthDay(post.data.publishedAt)}
+                </time>
+                <div class="post-body">
+                  <a class="post-title" href={postUrl(post)}>
+                    {post.data.title}
+                  </a>
+                  {post.data.tags.length > 0 && (
+                    <div class="post-tags">
+                      <TagList tags={post.data.tags} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))
+}
+
+<style>
+  .year-group + .year-group {
+    border-top: 1px solid var(--rule);
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+  }
+
+  .year-heading {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-row {
+    padding-block: var(--space-2);
+  }
+
+  .post-row-inner {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0 var(--space-3);
+    align-items: baseline;
+  }
+
+  .post-date {
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding-top: 0.15em; /* optical alignment */
+  }
+
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .post-title {
+    color: var(--ink);
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  .post-title:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .post-tags {
+    /* tags render inline via TagList */
+  }
+
+  /* <=480px: date sits above title */
+  @media (max-width: 480px) {
+    .post-row-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+</style>

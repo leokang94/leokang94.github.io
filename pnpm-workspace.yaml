@@ -1,0 +1,5 @@
+overrides:
+  # @napi-rs/wasm-runtime's optional peer otherwise resolves to 2.0.0-beta, which
+  # is ABI-incompatible with @emnapi/core 1.x and crashes `astro check`
+  # (`this.bridge.setLastError is not a function`).
+  '@emnapi/runtime': 1.11.3

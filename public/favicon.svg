@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .ink { fill: #1c2430; }
+    @media (prefers-color-scheme: dark) { .ink { fill: #dce3ec; } }
+  </style>
+  <path fill="#f2e14c" d="M2.6 19.2 L29.6 16.4 L29.2 26.6 L3.4 28.4 Z" />
+  <path class="ink" d="M6.5 3.5 H16 V5.6 H14 V21.4 H22.2 V17.6 H24.6 V24 H6.5 V21.9 H8.6 V5.6 H6.5 Z" />
+</svg>
