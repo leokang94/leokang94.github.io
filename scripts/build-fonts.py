@@ -2,10 +2,10 @@
 # requires-python = ">=3.11"
 # dependencies = ["fonttools[woff]>=4.50"]
 # ///
-"""Split the Korean webfonts into unicode-range slices.
+"""Split the D2Coding webfont into unicode-range slices.
 
-The full MaruBuri / D2Coding files are 0.8-1.5MB each. Browsers only download
-an @font-face whose unicode-range covers a character on the page, so we ship:
+The full D2Coding file is ~1.5MB. Browsers only download an @font-face whose
+unicode-range covers a character on the page, so we ship:
 
 - latin:  ASCII, Latin-1, general punctuation (code blocks, English text)
 - common: KS X 1001 Hangul (2,350 syllables covering everyday Korean) + CJK symbols
@@ -26,8 +26,6 @@ CSS_OUT = ROOT / "src" / "styles" / "fonts.css"
 
 FONTS = [
     # (family, weight, source ttf, file prefix)
-    ("MaruBuri", 400, "node_modules/@kfonts/maruburi/src/MaruBuri-Regular.ttf", "maruburi-400"),
-    ("MaruBuri", 700, "node_modules/@kfonts/maruburi/src/MaruBuri-Bold.ttf", "maruburi-700"),
     ("D2Coding", 400, "node_modules/@kfonts/d2coding/src/D2Coding.ttf", "d2coding-400"),
 ]
 

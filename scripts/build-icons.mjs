@@ -12,8 +12,8 @@ const MUTED = '#5b6676';
 const HIGHLIGHT = '#f2e14c';
 
 const fontFiles = [
-  'node_modules/@kfonts/maruburi/src/MaruBuri-Regular.ttf',
-  'node_modules/@kfonts/maruburi/src/MaruBuri-Bold.ttf',
+  'node_modules/pretendard/dist/public/static/alternative/Pretendard-Regular.ttf',
+  'node_modules/pretendard/dist/public/static/alternative/Pretendard-Bold.ttf',
 ].map((p) => new URL(p, root).pathname);
 
 const favicon = await readFile(pub('favicon.svg'), 'utf8');
@@ -27,7 +27,7 @@ const markInner = favicon
 function render(svg, width) {
   return new Resvg(svg, {
     fitTo: { mode: 'width', value: width },
-    font: { fontFiles, loadSystemFonts: false, defaultFontFamily: 'MaruBuri' },
+    font: { fontFiles, loadSystemFonts: false, defaultFontFamily: 'Pretendard' },
   })
     .render()
     .asPng();
@@ -64,8 +64,8 @@ const og = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="${PAPER}"/>
   <g transform="translate(96 96) scale(4)">${markInner}</g>
   <path fill="${HIGHLIGHT}" d="M90 382 L612 364 L606 418 L96 430 Z"/>
-  <text x="96" y="404" font-family="MaruBuri" font-weight="700" font-size="132" fill="${INK}">LeoLog</text>
-  <text x="100" y="496" font-family="MaruBuri" font-weight="400" font-size="44" fill="${MUTED}">기록으로 기억하기</text>
+  <text x="96" y="404" font-family="Pretendard" font-weight="700" font-size="132" fill="${INK}">LeoLog</text>
+  <text x="100" y="496" font-family="Pretendard" font-weight="400" font-size="44" fill="${MUTED}">기록으로 기억하기</text>
 </svg>`;
 await writeFile(pub('og.png'), render(og, 1200));
 

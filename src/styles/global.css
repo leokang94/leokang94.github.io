@@ -1,3 +1,5 @@
+/* Pretendard ships its own unicode-range split (~90 slices); Vite bundles the woff2 files. */
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 @import './fonts.css';
 
 /* ---------- tokens ---------- */
@@ -12,7 +14,8 @@
   --highlight-ink: #1c2430;
   --code-bg: #e5e9ee;
 
-  --font-body: 'MaruBuri', 'Apple SD Gothic Neo', 'Noto Serif KR', serif;
+  --font-body: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
   --font-code: 'D2Coding', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* modular scale 1.25 on 18px body */
@@ -83,7 +86,7 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  line-height: 1.8;
+  line-height: 1.75;
   word-break: keep-all;
   overflow-wrap: anywhere;
   -webkit-font-smoothing: antialiased;

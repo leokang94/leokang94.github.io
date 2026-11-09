@@ -58,7 +58,7 @@ draft: false
 ## 에셋 재생성
 
 ```bash
-# 웹폰트 서브셋 재생성 (uv 필요)
+# 코드용 D2Coding 서브셋 재생성 (uv 필요). 본문 Pretendard는 npm 패키지의 dynamic subset을 그대로 사용
 uv run scripts/build-fonts.py
 
 # favicon.ico · apple-touch-icon.png · og.png 재생성 (원본: public/favicon.svg)
