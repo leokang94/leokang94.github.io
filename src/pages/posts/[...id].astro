@@ -1,0 +1,79 @@
+---
+import { render } from 'astro:content';
+import '@/styles/prose.css';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TagList from '@/components/TagList.astro';
+import Toc from '@/components/Toc.astro';
+import SeriesNav from '@/components/SeriesNav.astro';
+import Giscus from '@/components/Giscus.astro';
+import { formatDate, getPosts, type Post } from '@/lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, publishedAt, updatedAt, tags } = post.data;
+const { Content, headings } = await render(post);
+---
+
+<BaseLayout {title} {description} type="article" {publishedAt} searchable>
+  <header class="post-header">
+    <h1><span class="marker">{title}</span></h1>
+    <p class="meta" data-pagefind-ignore>
+      <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt)}</time>
+      {
+        updatedAt && (
+          <span>
+            수정 <time datetime={updatedAt.toISOString()}>{formatDate(updatedAt)}</time>
+          </span>
+        )
+      }
+    </p>
+    <div data-pagefind-ignore>
+      <TagList {tags} />
+    </div>
+    <span hidden data-pagefind-meta={`date:${publishedAt.toISOString().slice(0, 10)}`}></span>
+    {tags.map((tag) => <span hidden data-pagefind-filter="tag">{tag}</span>)}
+  </header>
+
+  <Toc {headings} />
+
+  <article class="prose">
+    <Content />
+  </article>
+
+  <SeriesNav {post} />
+  <Giscus />
+</BaseLayout>
+
+<style>
+  .post-header {
+    margin-bottom: var(--space-5);
+  }
+
+  h1 {
+    font-size: var(--step-3);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: var(--step-2);
+    }
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: var(--space-3) 0 var(--space-2);
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+</style>

@@ -1,0 +1,63 @@
+<button class="theme-toggle" type="button" aria-label="다크 모드" aria-pressed="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+    <path d="M12 3.5 A8.5 8.5 0 0 1 12 20.5 Z" fill="currentColor"></path>
+  </svg>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const root = document.documentElement;
+  const sync = () => button?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+  sync();
+
+  button?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('theme', next);
+    sync();
+    document.dispatchEvent(new CustomEvent('themechange', { detail: next }));
+  });
+
+  // Follow the OS setting until the reader picks a theme explicitly.
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+    if (localStorage.getItem('theme')) return;
+    root.dataset.theme = event.matches ? 'dark' : 'light';
+    sync();
+    document.dispatchEvent(new CustomEvent('themechange', { detail: root.dataset.theme }));
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    color: var(--ink);
+  }
+
+  svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    transition: transform 240ms ease;
+  }
+
+  :global(:root[data-theme='dark']) svg {
+    transform: rotate(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg {
+      transition: none;
+    }
+  }
+</style>

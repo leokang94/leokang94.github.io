@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostList from '@/components/PostList.astro';
+import Pagination from '@/components/Pagination.astro';
+import { getPosts } from '@/lib/posts';
+import { SITE } from '@/site.config';
+
+const allPosts = await getPosts();
+const totalPages = Math.max(1, Math.ceil(allPosts.length / SITE.postsPerPage));
+const currentPage = 1;
+const pagePosts = allPosts.slice(0, SITE.postsPerPage);
+
+const nextUrl = totalPages > 1 ? '/posts/page/2/' : undefined;
+---
+
+<BaseLayout title="글" description={SITE.description}>
+  <h1>글</h1>
+
+  {
+    pagePosts.length > 0 ? (
+      <PostList posts={pagePosts} />
+    ) : (
+      <p class="empty">아직 공개된 글이 없습니다.</p>
+    )
+  }
+
+  <Pagination
+    currentPage={currentPage}
+    totalPages={totalPages}
+    nextUrl={nextUrl}
+  />
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .empty {
+    color: var(--muted);
+  }
+</style>

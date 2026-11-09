@@ -1,0 +1,140 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length >= 2 && (
+    <details class="toc" open data-pagefind-ignore>
+      <summary>목차</summary>
+      <nav aria-label="목차">
+        <ol>
+          {items.map((h) => (
+            <li class={`depth-${h.depth}`}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </details>
+  )
+}
+
+<script>
+  const toc = document.querySelector<HTMLDetailsElement>('.toc');
+  if (toc) {
+    const wide = matchMedia('(min-width: 75rem)');
+    // Always open as a sidebar; collapsed by default above the article on narrow screens.
+    const syncOpen = () => (toc.open = wide.matches);
+    syncOpen();
+    wide.addEventListener('change', syncOpen);
+
+    const links = new Map(
+      [...toc.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')].map((a) => [
+        decodeURIComponent(a.hash.slice(1)),
+        a,
+      ]),
+    );
+    const headings = [...links.keys()]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    // Active = the last heading that has scrolled past the top band of the viewport.
+    let current: HTMLAnchorElement | undefined;
+    const update = () => {
+      const threshold = window.innerHeight * 0.25;
+      let active = headings[0];
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top <= threshold) active = h;
+        else break;
+      }
+      const link = active && links.get(active.id);
+      if (link === current) return;
+      current?.removeAttribute('aria-current');
+      link?.setAttribute('aria-current', 'true');
+      current = link;
+    };
+
+    // IntersectionObserver only signals when a heading crosses the band; the
+    // position check above decides which one wins.
+    const observer = new IntersectionObserver(update, { rootMargin: '0px 0px -75% 0px' });
+    headings.forEach((h) => observer.observe(h));
+    update();
+  }
+</script>
+
+<style>
+  .toc {
+    margin-block: 0 var(--space-5);
+    padding-block: var(--space-2);
+    border-block: 1px solid var(--rule);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  summary {
+    cursor: pointer;
+    color: var(--muted);
+  }
+
+  ol {
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding-block: 0.15rem;
+  }
+
+  .depth-3 {
+    padding-inline-start: var(--space-3);
+  }
+
+  a {
+    display: block;
+    padding-inline-start: var(--space-2);
+    border-inline-start: 2px solid transparent;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+
+  a[aria-current='true'] {
+    color: var(--ink);
+    border-inline-start-color: var(--highlight);
+  }
+
+  @media (min-width: 75rem) {
+    .toc {
+      grid-column: content-end / full-end;
+      grid-row: 1 / span 10;
+      align-self: start;
+      position: sticky;
+      top: var(--space-5);
+      max-height: calc(100dvh - 2 * var(--space-5));
+      overflow-y: auto;
+      max-width: 15rem;
+      margin: 0 0 0 var(--space-5);
+      padding: 0;
+      border: 0;
+    }
+
+    summary {
+      pointer-events: none;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+  }
+</style>

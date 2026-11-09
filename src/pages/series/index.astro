@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getPosts, groupBySeries, seriesUrl, formatMonthDay } from '@/lib/posts';
+
+const allPosts = await getPosts();
+const seriesMap = groupBySeries(allPosts);
+
+// Each entry: series name, posts (oldest first per groupBySeries), date range
+const seriesList = [...seriesMap.entries()].map(([series, posts]) => ({
+  series,
+  count: posts.length,
+  // oldest first inside each series
+  firstDate: posts[0].data.publishedAt,
+  lastDate: posts[posts.length - 1].data.publishedAt,
+}));
+---
+
+<BaseLayout title="시리즈" description="시리즈별 글 목록">
+  <h1>시리즈</h1>
+
+  {
+    seriesList.length > 0 ? (
+      <ul class="series-list" role="list">
+        {seriesList.map(({ series, count, firstDate, lastDate }) => (
+          <li class="series-row">
+            <a href={seriesUrl(series)} class="series-title">{series}</a>
+            <span class="series-meta">
+              {count}편
+              {' · '}
+              <time datetime={firstDate.toISOString()}>{formatMonthDay(firstDate)}</time>
+              {count > 1 && (
+                <>
+                  {' – '}
+                  <time datetime={lastDate.toISOString()}>{formatMonthDay(lastDate)}</time>
+                </>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">아직 공개된 시리즈가 없습니다.</p>
+    )
+  }
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .series-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .series-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .series-title {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .series-title:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .series-meta {
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    color: var(--muted);
+  }
+</style>

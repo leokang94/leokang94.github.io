@@ -1,0 +1,75 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getPosts, groupByTag, tagUrl } from '@/lib/posts';
+
+const allPosts = await getPosts();
+const tagMap = groupByTag(allPosts);
+
+// Sort by count desc, then name asc
+const tags = [...tagMap.entries()]
+  .map(([tag, posts]) => ({ tag, count: posts.length }))
+  .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'ko'));
+---
+
+<BaseLayout title="태그" description="태그별 글 목록">
+  <h1>태그</h1>
+
+  {
+    tags.length > 0 ? (
+      <ul class="tag-cloud" role="list">
+        {tags.map(({ tag, count }) => (
+          <li>
+            <a href={tagUrl(tag)}>
+              #{tag}
+            </a>
+            <span class="count">({count})</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">아직 공개된 글이 없습니다.</p>
+    )
+  }
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .tag-cloud {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .tag-cloud li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+  }
+
+  .tag-cloud a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .tag-cloud a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .count {
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    color: var(--muted);
+  }
+</style>

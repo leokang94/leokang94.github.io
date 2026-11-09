@@ -1,0 +1,113 @@
+---
+import { SITE } from '@/site.config';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+
+const NAV = [
+  { href: '/posts/', label: '글' },
+  { href: '/tags/', label: '태그' },
+  { href: '/series/', label: '시리즈' },
+  { href: '/search/', label: '검색' },
+  { href: '/about/', label: '소개' },
+] as const;
+
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <a class="wordmark" href="/" aria-label={`${SITE.title} 홈`}>
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <path class="mark-band" d="M2.6 19.2 L29.6 16.4 L29.2 26.6 L3.4 28.4 Z"></path>
+      <path
+        class="mark-ink"
+        d="M6.5 3.5 H16 V5.6 H14 V21.4 H22.2 V17.6 H24.6 V24 H6.5 V21.9 H8.6 V5.6 H6.5 Z"
+      ></path>
+    </svg>
+    <span>{SITE.title}</span>
+  </a>
+  <nav aria-label="주 메뉴">
+    <ul>
+      {
+        NAV.map(({ href, label }) => (
+          <li>
+            <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <ThemeToggle />
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    width: min(var(--measure), 100% - 2 * var(--space-4));
+    margin-inline: auto;
+    padding-block: var(--space-4) var(--space-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-right: auto;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: var(--step-1);
+    text-decoration: none;
+  }
+
+  .mark {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .mark-band {
+    fill: var(--highlight);
+  }
+
+  .mark-ink {
+    fill: var(--ink);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: var(--step--1);
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    color: var(--ink);
+  }
+
+  nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--highlight);
+    text-decoration-thickness: 0.35em;
+    text-underline-offset: -0.1em;
+    text-decoration-skip-ink: none;
+  }
+
+  @media (max-width: 480px) {
+    nav {
+      order: 3;
+      width: 100%;
+    }
+  }
+</style>

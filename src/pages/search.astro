@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="검색">
+  <h1>검색</h1>
+  <div id="search"></div>
+  <p id="search-fallback" hidden>검색은 빌드된 사이트에서 동작합니다.</p>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-4);
+  }
+
+  /* Pagefind CSS custom properties — follow both themes */
+  #search {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-background: var(--paper);
+    --pagefind-ui-border: var(--rule);
+    --pagefind-ui-tag: var(--paper-raised);
+    --pagefind-ui-border-radius: 3px;
+    --pagefind-ui-font: var(--font-body);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/pagefind/pagefind-ui.css';
+    document.head.appendChild(css);
+
+    var script = document.createElement('script');
+    script.src = '/pagefind/pagefind-ui.js';
+    script.onload = function () {
+      var ui = new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        translations: {
+          placeholder: '글 검색',
+          zero_results: '[SEARCH_TERM]에 대한 결과가 없습니다.',
+        },
+      });
+
+      // Prefill from ?q= query param
+      var params = new URLSearchParams(window.location.search);
+      var q = params.get('q');
+      if (q) {
+        ui.triggerSearch(q);
+      }
+    };
+    script.onerror = function () {
+      document.getElementById('search-fallback').hidden = false;
+    };
+    document.body.appendChild(script);
+  })();
+</script>

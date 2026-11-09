@@ -1,0 +1,131 @@
+/* Typography for rendered Markdown. Imported by the post page only. */
+
+.prose>*+* {
+  margin-top: var(--space-3);
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  scroll-margin-top: var(--space-5);
+}
+
+.prose h2 {
+  margin-top: var(--space-6);
+  font-size: var(--step-2);
+}
+
+.prose h3 {
+  margin-top: var(--space-5);
+  font-size: var(--step-1);
+}
+
+.prose h4 {
+  margin-top: var(--space-4);
+  font-size: var(--step-0);
+}
+
+.prose :is(h2, h3, h4)+* {
+  margin-top: var(--space-3);
+}
+
+.heading-anchor {
+  margin-inline-start: 0.4em;
+  color: var(--muted);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+}
+
+:is(h2, h3, h4):is(:hover, :focus-within)>.heading-anchor {
+  opacity: 1;
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: 1.4em;
+}
+
+.prose li+li,
+.prose li>ul,
+.prose li>ol {
+  margin-top: var(--space-1);
+}
+
+.prose li::marker {
+  color: var(--muted);
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--space-3);
+  border-inline-start: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+.prose hr {
+  width: 4rem;
+  margin-block: var(--space-5);
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.prose img {
+  margin-inline: auto;
+}
+
+.prose mark {
+  background-color: transparent;
+  background-image: linear-gradient(100deg,
+      transparent 0.2em,
+      var(--highlight) 0.3em,
+      var(--highlight) calc(100% - 0.3em),
+      transparent calc(100% - 0.15em));
+  background-repeat: no-repeat;
+  background-size: 100% 0.6em;
+  background-position: 0 90%;
+  color: var(--highlight-ink);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.prose :not(pre)>code {
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  background: var(--code-bg);
+  font-size: 0.9em;
+}
+
+.prose pre.astro-code {
+  padding: var(--space-3) var(--space-4);
+  border-radius: 4px;
+  background-color: var(--code-bg) !important;
+  /* overrides Shiki's inline theme background */
+  font-size: var(--step--1);
+  line-height: 1.6;
+  tab-size: 2;
+  overflow-x: auto;
+}
+
+.prose .table-scroll {
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: start;
+  vertical-align: top;
+}
+
+.prose th {
+  font-weight: 700;
+  border-bottom-color: var(--ink);
+}
